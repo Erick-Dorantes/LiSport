@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de Nosotros - LiSport</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="images/site.webmanifest">
+    
+    <style>
+        /* Estilos específicos para la página Acerca de Nosotros */
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #c2185b 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .about-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .about-hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .mission-vision {
+            padding: 80px 20px;
+            background: var(--card-bg);
+        }
+        
+        .mission-vision-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .mission-card, .vision-card {
+            background: var(--background-color);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .mission-card i, .vision-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h2, .vision-card h2 {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .values-section {
+            padding: 80px 20px;
+            background: var(--background-color);
+        }
+        
+        .values-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .value-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .value-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #c2185b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .team-section {
+            padding: 80px 20px;
+            background: var(--card-bg);
+        }
+        
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .team-card {
+            background: var(--background-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .team-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 4rem;
+        }
+        
+        .team-info {
+            padding: 25px;
+        }
+        
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+        
+        .team-role {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .story-section {
+            padding: 80px 20px;
+            background: var(--background-color);
+        }
+        
+        .story-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .story-content {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        
+        .story-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .stats-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #c2185b 100%);
+            color: white;
+        }
+        
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 30px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .commitment-section {
+            padding: 80px 20px;
+            background: var(--card-bg);
+        }
+        
+        .commitment-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .commitment-card {
+            background: var(--background-color);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .commitment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .commitment-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(233, 30, 99, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 60px 20px;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .mission-vision-grid,
+            .values-grid,
+            .team-grid,
+            .stats-grid,
+            .commitment-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .mission-card, .vision-card,
+            .story-content,
+            .commitment-card {
+                padding: 30px 20px;
+            }
+            
+            .value-card,
+            .team-card {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .mission-card h2, .vision-card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .story-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="LiSport - Ropa Deportiva para Mujer" class="logo-image">
+                </a>
+            </div>
+            
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">INICIO</a></li>
+                    <li><a href="categories.html">CATÁLOGO</a></li>
+                    <li><a href="about.html" class="active">NOSOTROS</a></li>
+                    <li><a href="#contact">CONTACTO</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+            <ul>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="categories.html">CATÁLOGO</a></li>
+                <li><a href="about.html" class="active">NOSOTROS</a></li>
+                <li><a href="#contact">CONTACTO</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <h1>Nuestra Pasión por el Deporte</h1>
+        <p>En LiSport, creemos que cada mujer merece sentirse poderosa, cómoda y segura durante su práctica deportiva</p>
+    </section>
+
+    <!-- Misión y Visión -->
+    <section class="mission-vision">
+        <div class="mission-vision-grid">
+            <div class="mission-card">
+                <i class="fas fa-bullseye"></i>
+                <h2>Nuestra Misión</h2>
+                <p>Empoderar a las mujeres a través de ropa deportiva de alta calidad que combine estilo, comodidad y rendimiento. Creemos que la ropa deportiva debe adaptarse al cuerpo de la mujer, no al revés.</p>
+            </div>
+            <div class="vision-card">
+                <i class="fas fa-eye"></i>
+                <h2>Nuestra Visión</h2>
+                <p>Ser la empresa líder en venta de ropa deportiva para mujer en guerrero, reconocida por nuestra innovación, calidad y compromiso con el empoderamiento femenino en el deporte.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Valores -->
+    <section class="values-section">
+        <div class="values-container">
+            <h2 class="section-title">Nuestros Valores</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Calidad Premium</h3>
+                    <p>Utilizamos los mejores materiales y procesos de fabricación para garantizar durabilidad y comodidad en cada prenda.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Pasión por el Deporte</h3>
+                    <p>Vivimos y respiramos deporte. Cada diseño está creado por y para mujeres activas que aman moverse.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sostenibilidad</h3>
+                    <p>Nos comprometemos con prácticas sostenibles y materiales ecológicos para cuidar nuestro planeta.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Comunidad</h3>
+                    <p>Creemos en el poder de la comunidad femenina deportiva y apoyamos el crecimiento mutuo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nuestra Historia -->
+
+
+    <!-- Compromisos -->
+    <section class="commitment-section">
+        <div class="values-container">
+            <h2 class="section-title">Nuestros Compromisos</h2>
+            <div class="commitment-grid">
+                <div class="commitment-card">
+                    <div class="commitment-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3>Diseño Inclusivo</h3>
+                    <p>Creemos en la diversidad corporal. Nuestras prendas están diseñadas para adaptarse a diferentes tipos de cuerpo femenino.</p>
+                </div>
+                <div class="commitment-card">
+                    <div class="commitment-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3>Venta Responsable</h3>
+                    <p>En LiSport, promovemos una venta responsable de ropa deportiva. Seleccionamos cuidadosamente a nuestros proveedores para ofrecer productos que combinan calidad, comodidad y un compromiso con prácticas de fabricación éticas y sostenibles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>LiSport</h3>
+                <p>Ropa deportiva de alta calidad diseñada específicamente para mujeres activas que buscan comodidad, estilo y rendimiento.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/li_sport_25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="categories.html">Catálogo</a></li>
+                    <li><a href="about.html">Sobre Nosotros</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="categories.html?category=leggins">Leggings</a></li>
+                    <li><a href="categories.html?category=tops">Tops</a></li>
+                    <li><a href="categories.html?category=calcetas">Calcetas</a></li>
+                    <li><a href="categories.html?category=sweaters">Sudadera</a></li>
+                    <li><a href="categories.html?category=conjuntos">Conjuntos</a></li>
+                    <li><a href="categories.html?category=enterizos">Enterizos</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Chilpancingo de los Bravo, Guerrero, México</li>
+                    <li><i class="fas fa-clock"></i> Lun-Vie: 9:00 - 18:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 LiSport. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Animación para los contadores de estadísticas
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200; // Velocidad de la animación
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const count = parseInt(counter.innerText);
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(() => animateCounters(), 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+        
+        // Iniciar animación cuando la sección sea visible
+        function startCounterAnimation() {
+            const statsSection = document.querySelector('.stats-section');
+            const sectionPosition = statsSection.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (sectionPosition < screenPosition) {
+                animateCounters();
+                window.removeEventListener('scroll', startCounterAnimation);
+            }
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Iniciar observador para la animación de contadores
+            window.addEventListener('scroll', startCounterAnimation);
+            
+            // Iniciar animación si la sección ya es visible
+            startCounterAnimation();
+        });
+    </script>
+</body>
+</html>

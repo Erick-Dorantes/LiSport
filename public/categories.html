@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - LiSport</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="images/site.webmanifest">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                    <a href="index.html">
+                        <img src="images/logo.png" alt="LiSport - Ropa Deportiva para Mujer" class="logo-image">
+                    </a>
+            </div>
+            
+            <!--MENÚ PRINCIPAL - SOLO UNO -->
+            <nav class="main-nav" aria-label="Menú principal">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="sobre-nosotros.html">Nosotros</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú móvil">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú móvil -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+            <ul>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="#about">NOSOTROS</a></li>
+                <li><a href="#contact">CONTACTO</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="categories">
+        <h2 class="section-title" id="categoryTitle">Todos los Productos</h2>
+   <!-- Sección de Filtros Mejorada -->
+<section class="filters-section">
+    <div class="filters-container">
+        <!-- Columna de Filtros -->
+        <aside class="filters-sidebar">
+            <div class="filters-header">
+                <h3>FILTROS</h3>
+                <button class="clear-filters" id="clearFilters">Limpiar todo</button>
+            </div>
+<!-- Barra de Búsqueda en Sidebar -->
+            <div class="filter-group">
+                <div class="filter-title">
+                    <h4>BUSCAR</h4>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar productos..." class="search-input">
+                    <button class="search-clear" id="searchClear">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtro por Categoría -->
+            <div class="filter-group">
+                <div class="filter-title">
+                    <h4>CATEGORÍA</h4>
+                    <span class="filter-count">6</span>
+                </div>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="leggins">
+                        <span class="checkmark"></span>
+                        Leggings
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="tops">
+                        <span class="checkmark"></span>
+                        Tops & Blusas
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="bottoms">
+                        <span class="checkmark"></span>
+                        Bottoms
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="sweaters">
+                        <span class="checkmark"></span>
+                        Sudaderas
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="conjuntos">
+                        <span class="checkmark"></span>
+                        Conjuntos
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="category" value="enterizos">
+                        <span class="checkmark"></span>
+                        Enterizos
+                    </label>
+                    <button class="view-more" id="viewMoreCategories">Ver Más</button>
+                </div>
+            </div>
+
+            <!-- Filtro por Estilo -->
+            <div class="filter-group">
+                <div class="filter-title">
+                    <h4>ESTILO</h4>
+                </div>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" name="style" value="deportivo">
+                        <span class="checkmark"></span>
+                        Deportivo
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="style" value="fitness">
+                        <span class="checkmark"></span>
+                        Fitness
+                    </label>
+                </div>
+            </div>
+
+            <!-- Filtro por Talla -->
+            <div class="filter-group">
+                <div class="filter-title">
+                    <h4>TALLA</h4>
+                </div>
+                <div class="size-filters">
+                    <label class="size-option">
+                        <input type="checkbox" name="size" value="XS">
+                        <span>XS</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="checkbox" name="size" value="S">
+                        <span>S</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="checkbox" name="size" value="M">
+                        <span>M</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="checkbox" name="size" value="L">
+                        <span>L</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="checkbox" name="size" value="XL">
+                        <span>XL</span>
+                    </label>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- Columna de Productos -->
+        <main class="products-main">
+            <div class="products-header">
+                <div class="results-info">
+                    <span id="resultsCount">12 productos encontrados</span>
+                </div>
+                <div class="sort-options">
+                    <label for="sortSelect">Ordenar por:</label>
+                    <select id="sortSelect">
+                        <option value="recommended">Recomendados</option>
+                        <option value="price_asc">Precio: Menor a Mayor</option>
+                        <option value="price_desc">Precio: Mayor a Menor</option>
+                        <option value="name">Nombre A-Z</option>
+                        <option value="newest">Más Nuevos</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+            <!-- Los productos se cargan dinámicamente -->
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>LiSport</h3>
+                <p>Ropa deportiva de alta calidad diseñada específicamente para mujeres activas.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/li_sport_25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
+                    </div>
+            </div>
+            <div class="footer-col">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="categories.html">Catálogo</a></li>
+                    <li><a href="#about">Sobre Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Categoría</h3>
+                <ul>
+                    <li><a href="categories.html?category=conjuntos">Conjuntos</a></li>
+                    <li><a href="categories.html?category=leggins">Leggings</a></li>
+                    <li><a href="categories.html?category=tops">Tops Deportivos</a></li>
+                    <li><a href="categories.html?category=enterizos">Enterizos</a></li>
+                    <li><a href="categories.html?category=calcetas">Calcetas</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Chilpancingo de los Bravo, Guerrero, México</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 LiSport. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
