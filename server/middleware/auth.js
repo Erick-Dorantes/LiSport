@@ -1,6 +1,6 @@
 // server/middleware/auth.js
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const { User } = require('../models/User');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lisport_secret_key_2024';
 
@@ -30,7 +30,7 @@ const authenticateToken = async (req, res, next) => {
         const decoded = jwt.verify(token, JWT_SECRET);
         
         // Verificar que el usuario aún existe y está activo
-        const user = await User.findById(decoded.userId);
+        const user = await User.findByPk(decoded.userId);
         if (!user || !user.active) {
             return res.status(401).json({
                 success: false,

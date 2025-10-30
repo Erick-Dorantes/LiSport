@@ -1,7 +1,7 @@
 // server/routes/auth.js
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const { User } = require('../models/User');
 const { generateToken, authenticateToken } = require('../middleware/auth');
 const rateLimit = require('express-rate-limit');
 
@@ -34,8 +34,10 @@ router.post('/login', loginLimiter, async (req, res) => {
 
         // Buscar usuario activo
         const user = await User.findOne({ 
-            username: username.trim(),
-            active: true 
+            where: { 
+                username: username.trim(),
+                active: true 
+            }
         });
 
         if (!user) {
@@ -70,17 +72,15 @@ router.post('/login', loginLimiter, async (req, res) => {
         }
 
         // Login exitoso - resetear contadores
-        await User.findByIdAndUpdate(user._id, {
-            $set: { 
-                lastLogin: new Date(),
-                loginAttempts: 0 
-            },
-            $unset: { lockUntil: 1 }
+        await user.update({
+            lastLogin: new Date(),
+            loginAttempts: 0,
+            lockUntil: null
         });
 
         // Generar token JWT
         const token = generateToken({
-            userId: user._id,
+            userId: user.id,
             username: user.username,
             role: user.role
         });
@@ -92,7 +92,7 @@ router.post('/login', loginLimiter, async (req, res) => {
             data: {
                 token,
                 user: {
-                    id: user._id,
+                    id: user.id,
                     username: user.username,
                     role: user.role,
                     lastLogin: user.lastLogin
@@ -115,7 +115,9 @@ router.post('/login', loginLimiter, async (req, res) => {
 // @access  Private
 router.get('/verify', authenticateToken, async (req, res) => {
     try {
-        const user = await User.findById(req.user.userId).select('-password');
+        const user = await User.findByPk(req.user.userId, {
+            attributes: { exclude: ['password'] }
+        });
         
         if (!user || !user.active) {
             return res.status(401).json({
@@ -128,7 +130,7 @@ router.get('/verify', authenticateToken, async (req, res) => {
             success: true,
             data: {
                 user: {
-                    id: user._id,
+                    id: user.id,
                     username: user.username,
                     role: user.role,
                     lastLogin: user.lastLogin
@@ -169,7 +171,7 @@ router.post('/change-password', authenticateToken, async (req, res) => {
         }
 
         // Obtener usuario
-        const user = await User.findById(req.user.userId);
+        const user = await User.findByPk(req.user.userId);
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -187,7 +189,7 @@ router.post('/change-password', authenticateToken, async (req, res) => {
         }
 
         // Actualizar contraseña
-        user.password = newPassword; // El pre-save hook se encargará del hash
+        user.password = newPassword;
         await user.save();
 
         res.json({
@@ -205,25 +207,23 @@ router.post('/change-password', authenticateToken, async (req, res) => {
     }
 });
 
-// @desc    Logout (manejado en el cliente, pero podemos invalidar token si usamos blacklist)
+// @desc    Logout
 // @route   POST /api/auth/logout
 // @access  Private
 router.post('/logout', authenticateToken, (req, res) => {
-    // En una implementación más avanzada, podrías agregar el token a una blacklist
-    // Por ahora, el logout se maneja en el cliente eliminando el token
-    
+    // El logout se maneja en el cliente eliminando el token
     res.json({
         success: true,
         message: 'Logout exitoso'
     });
 });
 
-// @desc    Refresh token (opcional)
+// @desc    Refresh token
 // @route   POST /api/auth/refresh
 // @access  Private
 router.post('/refresh', authenticateToken, async (req, res) => {
     try {
-        const user = await User.findById(req.user.userId);
+        const user = await User.findByPk(req.user.userId);
         
         if (!user || !user.active) {
             return res.status(401).json({
@@ -234,7 +234,7 @@ router.post('/refresh', authenticateToken, async (req, res) => {
 
         // Generar nuevo token
         const newToken = generateToken({
-            userId: user._id,
+            userId: user.id,
             username: user.username,
             role: user.role
         });
@@ -244,7 +244,7 @@ router.post('/refresh', authenticateToken, async (req, res) => {
             data: {
                 token: newToken,
                 user: {
-                    id: user._id,
+                    id: user.id,
                     username: user.username,
                     role: user.role
                 }

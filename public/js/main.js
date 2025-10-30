@@ -701,3 +701,25 @@ document.addEventListener('DOMContentLoaded', function() {
         setupFilters();
     }
 });
+const heroSection = document.querySelector('.hero');
+
+const heroImages = [
+    "images/Portada.png"
+
+];
+
+let currentImage = 0;
+
+function changeHeroBackground() {
+    currentImage = (currentImage + 1) % heroImages.length;
+    heroSection.style.backgroundImage = `
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+        url('${heroImages[currentImage]}')
+    `;
+}
+
+// Imagen inicial
+changeHeroBackground();
+
+// Cambia cada 5 segundos
+setInterval(changeHeroBackground, 5000);

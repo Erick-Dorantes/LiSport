@@ -326,6 +326,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -336,34 +337,32 @@
                 </a>
             </div>
             
-            <nav class="main-nav">
+            <nav class="main-nav" aria-label="Menú principal">
                 <ul>
-                    <li><a href="index.html">INICIO</a></li>
-                    <li><a href="categories.html">CATÁLOGO</a></li>
-                    <li><a href="about.html" class="active">NOSOTROS</a></li>
-                    <li><a href="#contact">CONTACTO</a></li>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="sobre-nosotros.html">Nosotros</a></li>
+                    <li><a href="#contact">Contacto</a></li>
                 </ul>
             </nav>
             
             <div class="header-actions">
-                <button class="theme-toggle" id="themeToggle">
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
                     <i class="fas fa-moon"></i>
                 </button>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú móvil">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
-        
-        <!-- Mobile Menu -->
+
+        <!-- Menú móvil -->
         <div class="mobile-menu" id="mobileMenu">
             <button class="close-menu" id="closeMenu">
                 <i class="fas fa-times"></i>
             </button>
             <ul>
                 <li><a href="index.html">INICIO</a></li>
-                <li><a href="categories.html">CATÁLOGO</a></li>
-                <li><a href="about.html" class="active">NOSOTROS</a></li>
+                <li><a href="sobre-nosotros.html">NOSOTROS</a></li>
                 <li><a href="#contact">CONTACTO</a></li>
             </ul>
         </div>
@@ -470,7 +469,6 @@
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="categories.html">Catálogo</a></li>
-                    <li><a href="about.html">Sobre Nosotros</a></li>
                     <li><a href="#contact">Contacto</a></li>
                 </ul>
             </div>

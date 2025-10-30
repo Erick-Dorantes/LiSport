@@ -1,0 +1,105 @@
+# =============================================
+# DEPENDENCIAS Y MÓDULOS
+# =============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =============================================
+# ARCHIVOS DE ENTORNO Y CONFIGURACIÓN SENSIBLE
+# =============================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Credenciales y secrets
+config/secrets.js
+config/keys.js
+*.key
+*.pem
+*.crt
+
+# =============================================
+# ARCHIVOS DEL SISTEMA
+# =============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =============================================
+# LOGS Y ARCHIVOS TEMPORALES
+# =============================================
+logs/
+*.log
+.pnp*
+
+# Archivos de cobertura de tests
+coverage/
+.nyc_output/
+
+# =============================================
+# ARCHIVOS DE CONSTRUCCIÓN Y DISTRIBUCIÓN
+# =============================================
+dist/
+build/
+.out/
+.next/
+
+# =============================================
+# ARCHIVOS DE BASE DE DATOS Y BACKUPS
+# =============================================
+*.sqlite
+*.db
+*.dump
+backup/
+database-backups/
+
+# =============================================
+# ARCHIVOS DE MULTER (UPLOADS TEMPORALES)
+# =============================================
+uploads/temp/
+public/images/temp/
+
+# =============================================
+# ARCHIVOS DE SESSIONS (SI USAS SESIONES)
+# =============================================
+sessions/
+
+# =============================================
+# CACHE
+# =============================================
+.cache/
+.parcel-cache/
+
+# =============================================
+# ARCHIVOS ESPECÍFICOS DE RENDER.COM
+# =============================================
+.render.yaml.backup
+.render-cloud.json
+
+# =============================================
+# ARCHIVOS DE DEPENDENCIAS OPTIMIZADAS
+# =============================================
+.pnp.js
+
+# =============================================
+# ARCHIVOS DE DOCKER (SI USAS DOCKER)
+# =============================================
+Dockerfile
+docker-compose.yml
+.dockerignore

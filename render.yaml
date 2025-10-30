@@ -1,0 +1,23 @@
+# render.yaml
+services:
+  # Servicio Web
+  - type: web
+    name: lisport
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+    healthCheckPath: /api/health
+
+  # Base de datos PostgreSQL
+  - type: pg
+    name: lisport-db
+    plan: free
+    ipAllowList: []
+    databases:
+      - name: lisport

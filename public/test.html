@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test LiSport</title>
+</head>
+<body>
+    <h1>✅ LiSport - Test de Funcionalidad</h1>
+    
+    <div id="status">
+        <p>Probando conexiones...</p>
+    </div>
+
+    <script>
+        async function runTests() {
+            const status = document.getElementById('status');
+            const tests = [];
+            
+            // Test 1: Frontend cargando
+            tests.push('✅ Frontend cargado correctamente');
+            
+            // Test 2: API respondiendo
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                if (data.success) {
+                    tests.push('✅ API respondiendo correctamente');
+                } else {
+                    tests.push('❌ API con error');
+                }
+            } catch (error) {
+                tests.push('❌ API no disponible');
+            }
+            
+            // Mostrar resultados
+            status.innerHTML = '<h2>Resultados de las pruebas:</h2>' + 
+                tests.map(test => `<p>${test}</p>`).join('');
+        }
+        
+        runTests();
+    </script>
+</body>
+</html>
