@@ -44,7 +44,7 @@ const upload = multer({
 router.get('/', async (req, res) => {
     try {
         const products = await Product.findAll({
-            where: { status: true },
+            where: { active: true },
             order: [['createdAt', 'DESC']]
         });
 
@@ -70,7 +70,7 @@ router.get('/featured', async (req, res) => {
         const products = await Product.findAll({
             where: { 
                 featured: true,
-                status: true
+                active: true
             },
             order: [['createdAt', 'DESC']]
         });
@@ -98,7 +98,7 @@ router.get('/category/:category', async (req, res) => {
         const products = await Product.findAll({
             where: { 
                 category: category,
-                status: true
+                active: true
             },
             order: [['createdAt', 'DESC']]
         });
@@ -123,7 +123,7 @@ router.get('/category/:category', async (req, res) => {
 router.get('/search', async (req, res) => {
     try {
         const { q, category, minPrice, maxPrice, sizes, featured } = req.query;
-        let where = { status: true };
+        let where = { active: true };
 
         // Búsqueda por texto
         if (q) {
@@ -177,7 +177,7 @@ router.get('/:id', async (req, res) => {
         const { id } = req.params;
         const product = await Product.findByPk(id);
 
-        if (!product || product.status !== 'active') {
+        if (!product || !product.active) {
             return res.status(404).json({
                 success: false,
                 message: 'Producto no encontrado'
@@ -198,7 +198,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // =============================================
-// RUTAS PROTEGIDAS (ADMIN) - RUTAS CORREGIDAS
+// RUTAS PROTEGIDAS (ADMIN)
 // =============================================
 
 // @desc    Obtener estadísticas del dashboard
@@ -208,12 +208,12 @@ router.get('/admin/stats', authenticateToken, requireAdmin, async (req, res) => 
     try {
         const totalProducts = await Product.count();
         const featuredProducts = await Product.count({ 
-            where: { featured: true, status: 'active' } 
+            where: { featured: true, active: true } 
         });
         const lowStockProducts = await Product.count({ 
             where: { 
                 stock: { [Op.lt]: 10 },
-                status: true
+                active: true
             } 
         });
         
@@ -265,17 +265,13 @@ router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
     }
 });
 
-// @desc    Crear nuevo producto - RUTA CORREGIDA
+// @desc    Crear nuevo producto
 // @route   POST /api/products/admin/products
 // @access  Private/Admin
 router.post('/admin/products', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
     try {
-        console.log('📦 Creando producto - Body:', req.body);
-        console.log('📁 Archivo:', req.file);
-        
         const { name, description, price, category, sizes, stock, featured } = req.body;
-        
-        // Validaciones básicas
+
         if (!name || !price || !category || !description) {
             return res.status(400).json({
                 success: false,
@@ -290,7 +286,7 @@ router.post('/admin/products', authenticateToken, requireAdmin, upload.single('i
             category: category,
             stock: parseInt(stock) || 0,
             featured: featured === 'true' || featured === true,
-            status: true
+            active: true
         };
 
         // Procesar tallas
@@ -317,15 +313,13 @@ router.post('/admin/products', authenticateToken, requireAdmin, upload.single('i
 
         const product = await Product.create(productData);
 
-        console.log('✅ Producto creado:', product.id);
-
         res.status(201).json({ 
             success: true,
             message: 'Producto creado correctamente', 
             data: product 
         });
     } catch (error) {
-        console.error('❌ Error creando producto:', error);
+        console.error('Error creando producto:', error);
         res.status(500).json({ 
             success: false,
             message: 'Error creando producto: ' + error.message
@@ -333,15 +327,13 @@ router.post('/admin/products', authenticateToken, requireAdmin, upload.single('i
     }
 });
 
-// @desc    Actualizar producto - RUTA CORREGIDA
+// @desc    Actualizar producto
 // @route   PUT /api/products/admin/products/:id
 // @access  Private/Admin
 router.put('/admin/products/:id', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
     try {
         const { id } = req.params;
         const { name, description, price, category, sizes, stock, featured } = req.body;
-        
-        console.log(`🔄 Actualizando producto ${id}:`, req.body);
 
         const product = await Product.findByPk(id);
         if (!product) {
@@ -357,7 +349,6 @@ router.put('/admin/products/:id', authenticateToken, requireAdmin, upload.single
             featured: featured === 'true' || featured === true
         };
 
-        // Solo actualizar estos campos si están presentes
         if (price) updateData.price = parseFloat(price);
         if (category) updateData.category = category;
         if (stock !== undefined) updateData.stock = parseInt(stock);
@@ -375,14 +366,12 @@ router.put('/admin/products/:id', authenticateToken, requireAdmin, upload.single
             }
         }
 
-        // Procesar imagen solo si se subió una nueva
+        // Procesar imagen
         if (req.file) {
             updateData.image = `/uploads/${req.file.filename}`;
         }
 
         await product.update(updateData);
-
-        console.log('✅ Producto actualizado:', id);
 
         res.json({ 
             success: true,
@@ -390,7 +379,7 @@ router.put('/admin/products/:id', authenticateToken, requireAdmin, upload.single
             data: product 
         });
     } catch (error) {
-        console.error('❌ Error actualizando producto:', error);
+        console.error('Error actualizando producto:', error);
         res.status(500).json({ 
             success: false,
             message: 'Error actualizando producto: ' + error.message
@@ -398,14 +387,12 @@ router.put('/admin/products/:id', authenticateToken, requireAdmin, upload.single
     }
 });
 
-// @desc    Eliminar producto - RUTA CORREGIDA
+// @desc    Eliminar producto
 // @route   DELETE /api/products/admin/products/:id
 // @access  Private/Admin
 router.delete('/admin/products/:id', authenticateToken, requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(`🗑️ Eliminando producto: ${id}`);
-        
         const product = await Product.findByPk(id);
         
         if (!product) {
@@ -415,17 +402,14 @@ router.delete('/admin/products/:id', authenticateToken, requireAdmin, async (req
             });
         }
 
-        // Eliminar permanentemente
         await product.destroy();
-
-        console.log('✅ Producto eliminado:', id);
 
         res.json({ 
             success: true,
             message: 'Producto eliminado correctamente' 
         });
     } catch (error) {
-        console.error('❌ Error eliminando producto:', error);
+        console.error('Error eliminando producto:', error);
         res.status(500).json({ 
             success: false,
             message: 'Error eliminando producto: ' + error.message
