@@ -44,7 +44,7 @@ const upload = multer({
 router.get('/', async (req, res) => {
     try {
         const products = await Product.findAll({
-            where: { status: 'active' },
+            where: { status: true },
             order: [['createdAt', 'DESC']]
         });
 
@@ -123,7 +123,7 @@ router.get('/category/:category', async (req, res) => {
 router.get('/search', async (req, res) => {
     try {
         const { q, category, minPrice, maxPrice, sizes, featured } = req.query;
-        let where = { status: 'active' };
+        let where = { status: true };
 
         // Búsqueda por texto
         if (q) {
