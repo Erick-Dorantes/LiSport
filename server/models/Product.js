@@ -64,12 +64,16 @@ const Product = sequelize.define('Product', {
   timestamps: true
 });
 
-// Métodos de instancia
+// ==========================
+// MÉTODOS DE INSTANCIA
+// ==========================
 Product.prototype.isLowStock = function() {
   return this.stock < 10;
 };
 
-// Métodos estáticos
+// ==========================
+// MÉTODOS ESTÁTICOS
+// ==========================
 Product.findByCategory = function(category) {
   return this.findAll({
     where: { category, active: true },
@@ -77,10 +81,10 @@ Product.findByCategory = function(category) {
   });
 };
 
-Product.findFeatured = function() {
+Product.findFeatured = function(limit = 8) {
   return this.findAll({
     where: { featured: true, active: true },
-    limit: 8,
+    limit,
     order: [['createdAt', 'DESC']]
   });
 };
