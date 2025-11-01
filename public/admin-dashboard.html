@@ -829,792 +829,947 @@
     </style>
 </head>
 <body class="admin-page">
-        <header class="admin-header-panel">
-        <div class="header-container">
-            <div class="logo">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <a href="index.html">
-                    <img src="images/logo.png" alt="LiSport - Ropa Deportiva para Mujer" class="logo-image">
-                </a>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li>
-                        <button class="theme-toggle-admin" id="themeToggleAdmin">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                    </li>
-                    <li><a href="index.html">
-                        <i class="fas fa-store" style="margin-right: 8px;"></i>
-                        Ver Tienda
-                    </a></li>
-                    <li><a href="#" id="logoutBtn">
-                        <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
-                        Cerrar Sesión
-                    </a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <!-- Header -->
+    <header class="admin-header-panel">
+        <div class="header-container">
+            <div class="logo">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="index.html">
+                    <img src="images/logo.png" alt="LiSport - Ropa Deportiva para Mujer" class="logo-image">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li>
+                        <button class="theme-toggle-admin" id="themeToggleAdmin">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                    <li><a href="index.html">
+                        <i class="fas fa-store" style="margin-right: 8px;"></i>
+                        Ver Tienda
+                    </a></li>
+                    <li><a href="#" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
+                        Cerrar Sesión
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <div class="overlay" id="overlay"></div>
+    <!-- Overlay para móvil -->
+    <div class="overlay" id="overlay"></div>
 
-        <aside class="admin-sidebar" id="adminSidebar">
-        <div class="sidebar-header">
-            <div class="admin-avatar">
-                <i class="fas fa-user-shield"></i>
-            </div>
-            <div class="admin-name">Administrador</div>
-            <div class="admin-role">Panel de Control</div>
-        </div>
-        
-        <nav class="sidebar-menu">
-            <a href="#" class="menu-item active">
-                <i class="fas fa-tachometer-alt"></i>
-                Dashboard
-                <span class="menu-badge">Nuevo</span>
-            </a>
-            <a href="#" class="menu-item">
-                <i class="fas fa-tshirt"></i>
-                Productos
-                <span class="menu-badge" id="sidebarProductCount">0</span>
-            </a>
-            <a href="#" class="menu-item">
-                <i class="fas fa-tags"></i>
-                Categorías
-                <span class="menu-badge">6</span>
-            </a>
-        </nav>
-    </aside>
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <div class="admin-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="admin-name">Administrador</div>
+            <div class="admin-role">Panel de Control</div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="#" class="menu-item active">
+                <i class="fas fa-tachometer-alt"></i>
+                Dashboard
+                <span class="menu-badge">Nuevo</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-tshirt"></i>
+                Productos
+                <span class="menu-badge">24</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-tags"></i>
+                Categorías
+                <span class="menu-badge">6</span>
+            </a>
+        </nav>
+    </aside>
 
-        <main class="admin-main" id="adminMain">
-                <div class="dashboard-stats">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-tshirt"></i>
-                </div>
-                <div class="stat-value" id="totalProducts">0</div>
-  S             <div class="stat-label">Total Productos</div>
-                <div class="stat-trend trend-up">
-                    <i class="fas fa-arrow-up"></i>
-                    <span>...</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <div class="stat-value" id="featuredProducts">0</div>
-                <div class="stat-label">Productos Destacados</div>
-                <div class="stat-trend trend-up">
-                    <i class="fas fa-arrow-up"></i>
-                    <span>...</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                  S <i class="fas fa-box-open"></i>
-                </div>
-                <div class="stat-value" id="lowStockProducts">0</div>
-                <div class="stat-label">Stock Bajo</div>
-                <div class="stat-trend trend-down">
-                    <i class="fas fa-arrow-down"></i>
-                    <span>...</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-tags"></i>
-                </div>
-                <div class="stat-value" id="totalCategories">6</div>
-                <div class="stat-label">Categorías</div>
-                <div class="stat-trend">
-                    <i class="fas fa-minus"></i>
-                    <span>Sin cambios</span>
-                </div>
-            </div>
-        </div>
+    <!-- Main Content -->
+    <main class="admin-main" id="adminMain">
+        <!-- Dashboard Stats -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="stat-value" id="totalProducts">0</div>
+                <div class="stat-label">Total Productos</div>
+                <div class="stat-trend trend-up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>Cargando...</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-value" id="featuredProducts">0</div>
+                <div class="stat-label">Productos Destacados</div>
+                <div class="stat-trend trend-up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>Cargando...</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <div class="stat-value" id="lowStockProducts">0</div>
+                <div class="stat-label">Stock Bajo</div>
+                <div class="stat-trend trend-down">
+                    <i class="fas fa-arrow-down"></i>
+                    <span>Cargando...</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <div class="stat-value" id="totalCategories">0</div>
+                <div class="stat-label">Categorías</div>
+                <div class="stat-trend">
+                    <i class="fas fa-minus"></i>
+                    <span>Cargando...</span>
+                </div>
+            </div>
+        </div>
 
-                <div class="admin-card">
-            <div class="admin-card-header">
-                <h3><i class="fas fa-cog"></i> Panel de Control</h3>
-                <div class="admin-actions">
-                    <button class="admin-btn" id="changePasswordBtn">
-                        <i class="fas fa-key"></i> Cambiar Contraseña
-                    </button>
-                    <button class="admin-btn success" id="addProductBtn">
-                        <i class="fas fa-plus"></i> Agregar Producto
-                    </button>
-                </div>
-            </div>
-        </div>
+        <!-- Panel de Control Principal -->
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h3><i class="fas fa-cog"></i> Panel de Control</h3>
+                <div class="admin-actions">
+                    <button class="admin-btn" id="changePasswordBtn">
+                        <i class="fas fa-key"></i> Cambiar Contraseña
+                    </button>
+                    <button class="admin-btn success" id="addProductBtn">
+                        <i class="fas fa-plus"></i> Agregar Producto
+                    </button>
+                </div>
+            </div>
+        </div>
 
-                <div class="admin-form-container" id="changePasswordForm">
-            <div class="form-header">
-                <h3><i class="fas fa-key"></i> Cambiar Contraseña</h3>
-                <button class="admin-btn secondary" onclick="toggleForm('changePasswordForm')">
-                    <i class="fas fa-times"></i> Cerrar
-                </button>
-            </div>
-            <div class="form-body">
-                <form id="passwordForm">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="currentPassword">
-                                <i class="fas fa-lock" style="margin-right: 8px;"></i>
-                                Contraseña Actual
-                            </label>
-                            <input type="password" id="currentPassword" name="currentPassword" required 
-                                   placeholder="Ingresa tu contraseña actual">
-                        </div>
-                        <div class="form-group">
-                            <label for="newPassword">
-                                <i class="fas fa-key" style="margin-right: 8px;"></i>
-                                Nueva Contraseña
-                            </label>
-                            <input type="password" id="newPassword" name="newPassword" required minlength="6"
-                                   placeholder="Mínimo 6 caracteres">
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmPassword">
-                                <i class="fas fa-check-double" style="margin-right: 8px;"></i>
-                                Confirmar Contraseña
-                            </label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" required
-                                   placeholder="Repite la nueva contraseña">
-              _           </div>
-                    </div>
-                    <div class="admin-actions">
-                        <button type="submit" class="admin-btn success" id="passwordSubmitBtn">
-                            <i class="fas fa-save"></i> Actualizar Contraseña
-                        </button>
-                        <button type="button" class="admin-btn secondary" onclick="toggleForm('changePasswordForm')">
-            _                 <i class="fas fa-times"></i> Cancelar
-                        </button>
-                    </div>
-                </form>
-                <div id="passwordMessage" class="admin-message" style="display: none;"></div>
-            </div>
-        </div>
+        <!-- Formulario de Cambio de Contraseña -->
+        <div class="admin-form-container" id="changePasswordForm">
+            <div class="form-header">
+                <h3><i class="fas fa-key"></i> Cambiar Contraseña</h3>
+                <button class="admin-btn secondary" onclick="toggleForm('changePasswordForm')">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+            <div class="form-body">
+                <form id="passwordForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="currentPassword">
+                                <i class="fas fa-lock" style="margin-right: 8px;"></i>
+                                Contraseña Actual
+                            </label>
+                            <input type="password" id="currentPassword" name="currentPassword" required 
+                                   placeholder="Ingresa tu contraseña actual">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">
+                                <i class="fas fa-key" style="margin-right: 8px;"></i>
+                                Nueva Contraseña
+                            </label>
+                            <input type="password" id="newPassword" name="newPassword" required minlength="6"
+                                   placeholder="Mínimo 6 caracteres">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">
+                                <i class="fas fa-check-double" style="margin-right: 8px;"></i>
+                                Confirmar Contraseña
+                            </label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required
+                                   placeholder="Repite la nueva contraseña">
+                        </div>
+                    </div>
+                    <div class="admin-actions">
+                        <button type="submit" class="admin-btn success">
+                            <i class="fas fa-save"></i> Actualizar Contraseña
+                        </button>
+                        <button type="button" class="admin-btn secondary" onclick="toggleForm('changePasswordForm')">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+                <div id="passwordMessage" class="admin-message" style="display: none;"></div>
+            </div>
+        </div>
 
-                <div class="admin-form-container" id="productForm">
-            <div class="form-header">
-                <h3 id="productFormTitle"><i class="fas fa-plus"></i> Agregar Nuevo Producto</h3>
-                <button class="admin-btn secondary" onclick="toggleForm('productForm')">
-                    <i class="fas fa-times"></i> Cerrar
-                </button>
-            </div>
-            <div class="form-body">
-                <form id="productFormElement">
-                    <input type="hidden" id="productId" name="productId">
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="productName">
-                                <i class="fas fa-tag" style="margin-right: 8px;"></i>
-                                Nombre del Producto
-                            </label>
-                            <input type="text" id="productName" name="name" required 
-                                   placeholder="Ej: Legging Deportivo Power Fit">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="productPrice">
-                                <i class="fas fa-dollar-sign" style="margin-right: 8px;"></i>
-                                Precio ($)
-                            </label>
-                            <input type="number" id="productPrice" name="price" step="0.01" min="0" required 
-                                   placeholder="0.00">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="productCategory">
-                                <i class="fas fa-folder" style="margin-right: 8px;"></i>
-                                Categoría
-                            </label>
-                            <select id="productCategory" name="category" required>
-                                <option value="">Seleccionar categoría</option>
-                                <option value="conjuntos">Conjuntos</option>
-                                <option value="leggins">Leggings</option>
-                                <option value="tops">Tops Deportivos</option>
-                                <option value="enterizos">Enterizos</option>
-                                <option value="calcetas">Calcetas</option>
-                                <option value="sweaters">Sudaderas</option>
-              _           </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="productStock">
-                                <i class="fas fa-boxes" style="margin-right: 8px;"></i>
-                                Stock Disponible
-                            </label>
-                            <input type="number" id="productStock" name="stock" min="0" required 
-                                   placeholder="0">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productDescription">
-                            <i class="fas fa-align-left" style="margin-right: 8px;"></i>
-                            Descripción del Producto
-                        </label>
-  NT                   <textarea id="productDescription" name="description" required 
-                                  placeholder="Describe las características y beneficios del producto..."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>
-                            <i class="fas fa-ruler" style="margin-right: 8px;"></i>
-                            Tallas Disponibles
-                    S   </label>
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="XS">
-                                <span>XS</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="S">
-                                <span>S</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="M">
-                                <span>M</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="L">
-                                <span>L</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="XL">
-                                <span>XL</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>
-                            <i class="fas fa-image" style="margin-right: 8px;"></i>
-                            Imagen del Producto
-                        </label>
-NT                     <div class="file-upload" onclick="document.getElementById('productImage').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Haz clic para subir una imagen</p>
-                            <small>Formatos: JPG, PNG, GIF | Máx: 5MB</small>
-                        </div>
-                        <input type="file" id="productImage" name="image" accept="image/*" style="display: none;" 
-                               onchange="previewImage(this.files[0])">
-                        <div id="imagePreview" class="image-preview"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="productFeatured" name="featured" value="true">
-ISO                       <span><strong>Producto Destacado</strong></span>
-                        </label>
-                    s   <small>Los productos destacados aparecen en la página principal</small>
-                    </div>
-                    
-                    <div class="admin-actions">
-NT                     <button type="submit" class="admin-btn success" id="productFormSubmit">
-                            <i class="fas fa-save"></i> Guardar Producto
-                        </button>
-                        <button type="button" class="admin-btn secondary" onclick="toggleForm('productForm')">
-s                         <i class="fas fa-times"></i> Cancelar
-                        </button>
-                    </div>
-                </form>
-ISO           <div id="productMessage" class="admin-message" style="display: none;"></div>
-            </div>
-        </div>
+        <!-- Formulario de Productos -->
+        <div class="admin-form-container" id="productForm">
+            <div class="form-header">
+                <h3 id="productFormTitle"><i class="fas fa-plus"></i> Agregar Nuevo Producto</h3>
+                <button class="admin-btn secondary" onclick="toggleForm('productForm')">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+            <div class="form-body">
+                <form id="productFormElement">
+                    <input type="hidden" id="productId" name="productId">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="productName">
+                                <i class="fas fa-tag" style="margin-right: 8px;"></i>
+                                Nombre del Producto
+                            </label>
+                            <input type="text" id="productName" name="name" required 
+                                   placeholder="Ej: Legging Deportivo Power Fit">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productPrice">
+                                <i class="fas fa-dollar-sign" style="margin-right: 8px;"></i>
+                                Precio ($)
+                            </label>
+                            <input type="number" id="productPrice" name="price" step="0.01" min="0" required 
+                                   placeholder="0.00">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productCategory">
+                                <i class="fas fa-folder" style="margin-right: 8px;"></i>
+                                Categoría
+                            </label>
+                            <select id="productCategory" name="category" required>
+                                <option value="">Seleccionar categoría</option>
+                                <option value="conjuntos">Conjuntos</option>
+                                <option value="leggins">Leggings</option>
+                                <option value="tops">Tops Deportivos</option>
+                                <option value="enterizos">Enterizos</option>
+                                <option value="calcetas">Calcetas</option>
+                                <option value="sweaters">Sudaderas</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="productStock">
+                                <i class="fas fa-boxes" style="margin-right: 8px;"></i>
+                                Stock Disponible
+                            </label>
+                            <input type="number" id="productStock" name="stock" min="0" required 
+                                   placeholder="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productDescription">
+                            <i class="fas fa-align-left" style="margin-right: 8px;"></i>
+                            Descripción del Producto
+                        </label>
+                        <textarea id="productDescription" name="description" required 
+                                  placeholder="Describe las características y beneficios del producto..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-ruler" style="margin-right: 8px;"></i>
+                            Tallas Disponibles
+                        </label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="sizes" value="XS">
+                                <span>XS</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="sizes" value="S">
+                                <span>S</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="sizes" value="M">
+                                <span>M</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="sizes" value="L">
+                                <span>L</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="sizes" value="XL">
+                                <span>XL</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-image" style="margin-right: 8px;"></i>
+                            Imagen del Producto
+                        </label>
+                        <div class="file-upload" onclick="document.getElementById('productImage').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Haz clic para subir una imagen</p>
+                            <small>Formatos: JPG, PNG, GIF | Máx: 5MB</small>
+                        </div>
+                        <input type="file" id="productImage" name="image" accept="image/*" style="display: none;" 
+                               onchange="previewImage(this.files[0])">
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="productFeatured" name="featured" value="true">
+                            <span><strong>Producto Destacado</strong></span>
+                        </label>
+                        <small>Los productos destacados aparecen en la página principal</small>
+                    </div>
+                    
+                    <div class="admin-actions">
+                        <button type="submit" class="admin-btn success" id="productFormSubmit">
+                            <i class="fas fa-save"></i> Guardar Producto
+                        </button>
+                        <button type="button" class="admin-btn secondary" onclick="toggleForm('productForm')">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+                <div id="productMessage" class="admin-message" style="display: none;"></div>
+            </div>
+        </div>
 
-                <div class="admin-card">
-            <div class="admin-card-header">
-                <h3><i class="fas fa-list"></i> Gestión de Productos</h3>
-                <div class="admin-actions">
-  </h4>               <button class="admin-btn" onclick="exportProducts()">
-                        <i class="fas fa-download"></i> Exportar
-                    </button>
-                </div>
-            </div>
-            <div class="admin-card-body">
-                <div class="admin-filters">
-                    <div class="filter-group">
-                        <label for="searchProduct">
-                            <i class="fas fa-search" style="margin-right: 8px;"></i>
-                            Buscar:
-                        </label>
-                        <input type="text" id="searchProduct" placeholder="Buscar por nombre...">
-                    </div>
-                    <div class="filter-group">
-                        <label for="filterCategory">Categoría:</label>
-                        <select id="filterCategory">
-                            <option value="">Todas las categorías</option>
-M                           <option value="conjuntos">Conjuntos</option>
-                            <option value="leggins">Leggings</option>
-                            <option value="tops">Tops Deportivos</option>
-s                         <option value="enterizos">Enterizos</option>
-                            <option value="calcetas">Calcetas</option>
-                            <option value="sweaters">Sudaderas</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="filterStock">Stock:</label>
-                        <select id="filterStock">
-                            <option value="">Todo el stock</option>
-                            <option value="low">Stock bajo (< 10)</option>
-                            <option value="out">Sin stock</option>
-                      S </select>
-                    </div>
-                </div>
-NT               
-                <div class="products-table-container">
-                    <table class="products-table">
-                        <thead>
-                            <tr>
-                                <th>Imagen</th>
-                                <th>Producto</th>
-                                <th>Categoría</th>
-                              s <th>Precio</th>
-                                <th>Stock</th>
-                                <th>Tallas</th>
-                      S         <th>Estado</th>
-                              s <th>Acciones</th>
-s                         </tr>
-                        </thead>
-                        <tbody id="productsList">
-                                                    </tbody>
-                    </table>
-                </div>
-                
-                <div id="productsMessage" class="admin-message" style="display: none;"></div>
-            </div>
-        </div>
-    </main>
+        <!-- Gestión de Productos -->
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h3><i class="fas fa-list"></i> Gestión de Productos</h3>
+                <div class="admin-actions">
+                    <button class="admin-btn" onclick="exportProducts()">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                </div>
+            </div>
+            <div class="admin-card-body">
+                <div class="admin-filters">
+                    <div class="filter-group">
+                        <label for="searchProduct">
+                            <i class="fas fa-search" style="margin-right: 8px;"></i>
+                            Buscar:
+                        </label>
+                        <input type="text" id="searchProduct" placeholder="Buscar por nombre...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterCategory">Categoría:</label>
+                        <select id="filterCategory">
+                            <option value="">Todas las categorías</option>
+                            <option value="conjuntos">Conjuntos</option>
+                            <option value="leggins">Leggings</option>
+                            <option value="tops">Tops Deportivos</option>
+                            <option value="enterizos">Enterizos</option>
+                            <option value="calcetas">Calcetas</option>
+                            <option value="sweaters">Sudaderas</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterStock">Stock:</label>
+                        <select id="filterStock">
+                            <option value="">Todo el stock</option>
+                            <option value="low">Stock bajo (< 10)</option>
+                            <option value="out">Sin stock</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="products-table-container">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Tallas</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsList">
+                            <tr>
+                                <td colspan="8" style="text-align: center; padding: 40px;">
+                                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #ccc; margin-bottom: 15px;"></i>
+                                    <p>Cargando productos...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="productsMessage" class="admin-message" style="display: none;"></div>
+            </div>
+        </div>
+    </main>
 
-    <footer>
-        <div class="copyright">
-            <p>&copy; 2025 LiSport - Panel de Administración | <span id="currentYear"></span></p>
-NOS     </div>
-    </footer>
+    <footer>
+        <div class="copyright">
+            <p>&copy; 2025 LiSport - Panel de Administración | <span id="currentYear"></span></p>
+        </div>
+    </footer>
 
-   <script>
-    // Variable global para guardar los productos y facilitar el filtrado/edición
-    let allProducts = [];
+    <script>
+    // Script para el panel de administración con conexión a Render
+    const API_BASE_URL = 'https://lisport-1.onrender.com/api';
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Verificar autenticación
-        const token = localStorage.getItem('adminToken');
-        if (!token) {
-            window.location.href = 'admin-login.html';
-            return;
-        }
-        
-        // Actualizar año actual
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
-        // Cargar productos (esto ahora llama a la API real)
-        loadProducts();
-        
-        // Configurar event listeners
-        setupEventListeners();
-        
-        // Configurar navegación móvil
-        setupMobileNavigation();
-        
-        // Configurar modo oscuro
-        setupDarkMode();
-    });
-    
-    function setupDarkMode() {
-        const themeToggle = document.getElementById('themeToggleAdmin');
-        const themeIcon = themeToggle.querySelector('i');
-        const savedTheme = localStorage.getItem('adminTheme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-        }
-        themeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                localStorage.setItem('adminTheme', 'dark');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                localStorage.setItem('adminTheme', 'light');
-            }
-        });
-    }
-    
-    function setupEventListeners() {
-        document.getElementById('changePasswordBtn').addEventListener('click', () => toggleForm('changePasswordForm'));
-        document.getElementById('addProductBtn').addEventListener('click', () => {
-            resetProductForm();
-            toggleForm('productForm');
-        });
-        document.getElementById('passwordForm').addEventListener('submit', handlePasswordChange);
-        document.getElementById('productFormElement').addEventListener('submit', handleProductSubmit);
-        document.getElementById('searchProduct').addEventListener('input', applyFilters);
-        document.getElementById('filterCategory').addEventListener('change', applyFilters);
-        document.getElementById('filterStock').addEventListener('change', applyFilters);
-        document.getElementById('logoutBtn').addEventListener('click', logout);
-    }
-    
-    function setupMobileNavigation() {
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('adminSidebar');
-        const overlay = document.getElementById('overlay');
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-    }
-    
-    function toggleForm(formId) {
-        const form = document.getElementById(formId);
-        const isActive = form.classList.contains('active');
-        document.querySelectorAll('.admin-form-container').forEach(f => f.classList.remove('active'));
-        if (!isActive) {
-            form.classList.add('active');
-            window.scrollTo({ top: form.offsetTop - 80, behavior: 'smooth' });
-        }
-    }
-
-    // CORREGIDO: Actualiza las estadísticas basado en los productos cargados
-    function updateDashboardStats(products) {
-        const total = products.length;
-        const featured = products.filter(p => p.featured).length;
-        const lowStock = products.filter(p => p.stock < 10).length;
-
-        document.getElementById('totalProducts').textContent = total;
-        document.getElementById('featuredProducts').textContent = featured;
-        document.getElementById('lowStockProducts').textContent = lowStock;
-        document.getElementById('sidebarProductCount').textContent = total;
-    }
-    
-    function logout(e) {
-        e.preventDefault();
-        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-            localStorage.removeItem('adminToken');
-            window.location.href = 'admin-login.html';
-        }
-    }
-
-    // CORREGIDO: Llama a la API para cambiar la contraseña
-    async function handlePasswordChange(e) {
-        e.preventDefault();
-        const form = e.target;
-        const currentPassword = form.currentPassword.value;
-        const newPassword = form.newPassword.value;
-        const confirmPassword = form.confirmPassword.value;
-        const token = localStorage.getItem('adminToken');
-        const submitButton = document.getElementById('passwordSubmitBtn');
-
-        if (newPassword !== confirmPassword) {
-            showMessage('Las nuevas contraseñas no coinciden', 'error', 'passwordMessage');
-            return;
-        }
-
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
-
-        try {
-            const response = await fetch('/api/auth/change-password', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ currentPassword, newPassword })
-            });
-            
-            const result = await response.json();
-            
-            if (!response.ok) {
-                throw new Error(result.message || 'Error al cambiar la contraseña');
-            }
-            
-            showMessage('Contraseña actualizada correctamente', 'success', 'passwordMessage');
-            form.reset();
-            toggleForm('changePasswordForm');
-        } catch (error) {
-            showMessage(error.message, 'error', 'passwordMessage');
-        } finally {
-            submitButton.disabled = false;
-            submitButton.innerHTML = '<i class="fas fa-save"></i> Actualizar Contraseña';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Verificar autenticación
+        if (!localStorage.getItem('adminToken')) {
+            window.location.href = 'admin-login.html';
+            return;
         }
-    }
-    
-    // CORREGIDO: Llama a la API para crear/editar productos (usa FormData para imágenes)
-    async function handleProductSubmit(e) {
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        const token = localStorage.getItem('adminToken');
-        const messageElement = document.getElementById('productMessage');
-        const submitButton = document.getElementById('productFormSubmit');
+        
+        // Actualizar año actual
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Inicializar estadísticas
+        updateDashboardStats();
+        
+        // Cargar productos
+        loadProducts();
+        
+        // Configurar event listeners
+        setupEventListeners();
+        
+        // Configurar navegación móvil
+        setupMobileNavigation();
+        
+        // Configurar modo oscuro
+        setupDarkMode();
+    });
 
-        // Corregir 'featured' (FormData no envía 'false' en checkboxes)
-        const featured = document.getElementById('productFeatured').checked;
-        formData.set('featured', featured);
-        
-        // Corregir 'sizes'
-        const sizes = Array.from(form.querySelectorAll('input[name="sizes"]:checked')).map(cb => cb.value);
-        formData.delete('sizes'); // Borra las entradas individuales
-        sizes.forEach(size => formData.append('sizes', size)); // Añade como array
-
-        const productId = formData.get('productId');
-        const isEditing = !!productId;
-        const url = isEditing ? `/api/products/${productId}` : '/api/products';
-        const method = isEditing ? 'PUT' : 'POST';
-
-        // Si no hay imagen nueva al editar, borramos el campo 'image' para no sobrescribir
-        const imageFile = document.getElementById('productImage').files[0];
-        if (isEditing && !imageFile) {
-            formData.delete('image');
+    function setupDarkMode() {
+        const themeToggle = document.getElementById('themeToggleAdmin');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Verificar preferencia guardada
+        const savedTheme = localStorage.getItem('adminTheme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
         }
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('adminTheme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('adminTheme', 'light');
+            }
+        });
+    }
 
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+    function setupEventListeners() {
+        // Botones principales
+        document.getElementById('changePasswordBtn').addEventListener('click', function() {
+            toggleForm('changePasswordForm');
+        });
+        
+        document.getElementById('addProductBtn').addEventListener('click', function() {
+            resetProductForm();
+            toggleForm('productForm');
+        });
+        
+        // Formulario de contraseña
+        document.getElementById('passwordForm').addEventListener('submit', handlePasswordChange);
+        
+        // Formulario de producto
+        document.getElementById('productFormElement').addEventListener('submit', handleProductSubmit);
+        
+        // Filtros
+        document.getElementById('searchProduct').addEventListener('input', applyFilters);
+        document.getElementById('filterCategory').addEventListener('change', applyFilters);
+        document.getElementById('filterStock').addEventListener('change', applyFilters);
+        
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+    }
 
-        try {
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                    // No 'Content-Type', el navegador la pone con FormData
-                },
-                body: formData
-            });
+    function setupMobileNavigation() {
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('overlay');
+        
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+        
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Cerrar sidebar al hacer clic en un enlace (en móvil)
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    }
 
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.message || 'Error al guardar el producto.');
-            }
-
-            showMessage(result.message || 'Producto guardado correctamente', 'success', 'productMessage');
-            toggleForm('productForm');
-            loadProducts(); // Recarga la lista de productos
-        } catch (error) {
-            showMessage(error.message, 'error', 'productMessage');
-        } finally {
-            submitButton.disabled = false;
-            submitButton.innerHTML = '<i class="fas fa-save"></i> Guardar Producto';
+    function toggleForm(formId) {
+        const form = document.getElementById(formId);
+        const isActive = form.classList.contains('active');
+        
+        // Ocultar todos los formularios
+        document.querySelectorAll('.admin-form-container').forEach(f => {
+            f.classList.remove('active');
+        });
+        
+        // Mostrar/ocultar el formulario solicitado
+        if (!isActive) {
+            form.classList.add('active');
+            window.scrollTo({ top: form.offsetTop - 20, behavior: 'smooth' });
         }
-    }
-    
-    // CORREGIDO: Filtra la lista de productos localmente (sin re-llamar a la API)
-    function applyFilters() {
-        const search = document.getElementById('searchProduct').value.toLowerCase();
-        const category = document.getElementById('filterCategory').value;
-        const stock = document.getElementById('filterStock').value;
+    }
 
-        const filteredProducts = allProducts.filter(product => {
-            const matchesSearch = product.name.toLowerCase().includes(search);
-            const matchesCategory = !category || product.category === category;
-            const matchesStock = !stock ||
-                (stock === 'low' && product.stock < 10 && product.stock > 0) ||
-                (stock === 'out' && product.stock === 0);
-            return matchesSearch && matchesCategory && matchesStock;
-        });
+    // Función para hacer requests a la API
+    async function apiRequest(endpoint, options = {}) {
+        const token = localStorage.getItem('adminToken');
+        
+        const defaultOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        };
+        
+        const config = { ...defaultOptions, ...options };
+        
+        try {
+            const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+            
+            if (response.status === 401) {
+                // Token inválido o expirado
+                localStorage.removeItem('adminToken');
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || `Error ${response.status}: ${response.statusText}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('Error en la petición API:', error);
+            throw error;
+        }
+    }
 
-        renderProducts(filteredProducts);
-    }
-    
-    function showMessage(message, type, elementId) {
-        const messageElement = document.getElementById(elementId);
-        messageElement.innerHTML = `<div class="admin-message message-${type}">${message}</div>`;
-        messageElement.style.display = 'block';
-        setTimeout(() => {
-            messageElement.style.display = 'none';
-        }, 4000);
-    }
-    
-    // CORREGIDO: Carga productos reales desde la API
-    async function loadProducts() {
-        const list = document.getElementById('productsList');
-        list.innerHTML = '<tr><td colspan="8">Cargando productos...</td></tr>';
-        
-        try {
-            // Usamos la API pública (sin token) para cargar productos, como en los logs
-            const response = await fetch('/api/products'); 
-            if (!response.ok) {
-                throw new Error('Error al cargar productos');
-            }
-            allProducts = await response.json(); // Guarda en la variable global
-            
-            if (allProducts.length === 0) {
-                list.innerHTML = '<tr><td colspan="8">No se encontraron productos. ¡Agrega uno!</td></tr>';
-            } else {
-                renderProducts(allProducts); // Muestra los productos
-            }
-            
-            updateDashboardStats(allProducts); // Actualiza las estadísticas
-        } catch (error) {
-            list.innerHTML = `<tr><td colspan="8">${error.message}</td></tr>`;
-            console.error(error);
-        }
-    }
+    async function updateDashboardStats() {
+        try {
+            // En una implementación real, tu backend debería tener un endpoint /stats
+            // Por ahora, calculamos las estadísticas basándonos en los productos
+            const products = await apiRequest('/products');
+            
+            const totalProducts = products.length;
+            const featuredProducts = products.filter(p => p.featured).length;
+            const lowStockProducts = products.filter(p => p.stock < 10).length;
+            const categories = [...new Set(products.map(p => p.category))].length;
+            
+            document.getElementById('totalProducts').textContent = totalProducts;
+            document.getElementById('featuredProducts').textContent = featuredProducts;
+            document.getElementById('lowStockProducts').textContent = lowStockProducts;
+            document.getElementById('totalCategories').textContent = categories;
+            
+            // Actualizar badges del menú
+            document.querySelector('.menu-item:nth-child(2) .menu-badge').textContent = totalProducts;
+            document.querySelector('.menu-item:nth-child(3) .menu-badge').textContent = categories;
+            
+        } catch (error) {
+            console.error('Error cargando estadísticas:', error);
+            // Mantener valores por defecto
+        }
+    }
 
-    // NUEVA FUNCIÓN: Renderiza los productos en la tabla
-    function renderProducts(products) {
-        const list = document.getElementById('productsList');
-        list.innerHTML = ''; // Limpia la tabla
-        
-        products.forEach(product => {
-            const featuredBadge = product.featured ? '<span class="featured-badge">Destacado</span>' : '';
-            const stockStatus = product.stock === 0 ? 'status-out' : (product.stock < 10 ? 'status-low' : 'status-active');
-            const stockText = product.stock === 0 ? 'Agotado' : (product.stock < 10 ? 'Bajo' : 'Activo');
-            // Muestra la URL de la imagen si existe
-            const imageUrl = product.image ? product.image : 'https://via.placeholder.com/60';
+    function logout() {
+        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+            localStorage.removeItem('adminToken');
+            window.location.href = 'admin-login.html';
+        }
+    }
 
-            const row = `
-                <tr>
-                    <td class="product-image-cell">
-                        <img src="${imageUrl}" alt="${product.name}" class="product-image">
-                    </td>
-                    <td>
-                        <strong>${product.name}</strong>
-                        ${featuredBadge}
-                    </td>
-                    <td>${product.category}</td>
-                    <td>$${product.price}</td>
-                    <td>${product.stock}</td>
-                    <td>${product.sizes.join(', ')}</td>
-                    <td><span class="status-badge ${stockStatus}">${stockText}</span></td>
-                    <td>
-                        <div class="product-actions">
-                            <button class="admin-btn small" onclick="editProduct('${product.id}')">
-                                <i class="fas fa-edit"></i>
-        _               </button>
-                            <button class="admin-btn small danger" onclick="deleteProduct('${product.id}')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-Note             </tr>
-            `;
-            list.innerHTML += row;
-        });
-    }
-    
-    function previewImage(file) {
-        const preview = document.getElementById('imagePreview');
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.innerHTML = `
-                    <img src="${e.target.result}" alt="Vista previa">
-Info               <p>Vista previa de la nueva imagen</p>
-                `;
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-    
-    function resetProductForm() {
-        document.getElementById('productFormTitle').innerHTML = '<i class="fas fa-plus"></i> Agregar Nuevo Producto';
-s       document.getElementById('productFormElement').reset();
-        document.getElementById('productId').value = '';
-        document.getElementById('productFormSubmit').innerHTML = '<i class="fas fa-save"></i> Guardar Producto';
-        document.getElementById('imagePreview').innerHTML = '';
-        document.getElementById('productMessage').style.display = 'none';
-    }
-    
-    // CORREGIDO: Rellena el formulario con datos del producto para editar
-    function editProduct(id) {
-        const product = allProducts.find(p => p.id == id);
-        if (!product) return;
+    async function handlePasswordChange(e) {
+        e.preventDefault();
+        
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (newPassword !== confirmPassword) {
+            showMessage('Las contraseñas no coinciden', 'error', 'passwordMessage');
+            return;
+        }
+        
+        if (newPassword.length < 6) {
+            showMessage('La contraseña debe tener al menos 6 caracteres', 'error', 'passwordMessage');
+            return;
+        }
+        
+        try {
+            await apiRequest('/admin/change-password', {
+                method: 'POST',
+                body: JSON.stringify({
+                    currentPassword,
+                    newPassword
+                })
+            });
+            
+            showMessage('Contraseña actualizada correctamente', 'success', 'passwordMessage');
+            document.getElementById('passwordForm').reset();
+            
+            setTimeout(() => {
+                toggleForm('changePasswordForm');
+            }, 2000);
+            
+        } catch (error) {
+            showMessage('Error al cambiar la contraseña: ' + error.message, 'error', 'passwordMessage');
+        }
+    }
 
-        resetProductForm(); // Limpia el formulario primero
-        
-        document.getElementById('productFormTitle').innerHTML = '<i class="fas fa-edit"></i> Editar Producto';
-        document.getElementById('productId').value = product.id;
-        document.getElementById('productName').value = product.name;
-        document.getElementById('productPrice').value = product.price;
-        document.getElementById('productCategory').value = product.category;
-        document.getElementById('productStock').value = product.stock;
-      _   document.getElementById('productDescription').value = product.description;
-        document.getElementById('productFeatured').checked = product.featured;
-        
-        // Marcar las tallas
-        product.sizes.forEach(size => {
-            const checkbox = document.querySelector(`input[name="sizes"][value="${size}"]`);
-            if (checkbox) checkbox.checked = true;
-        });
-        
-        // Mostrar imagen actual
-        const preview = document.getElementById('imagePreview');
-        if (product.image) {
-            preview.innerHTML = `
-                <img src="${product.image}" alt="Imagen Actual">
-S               <p>Imagen actual. Subir una nueva la reemplazará.</p>
-            `;
-        }
-        
-        document.getElementById('productFormSubmit').innerHTML = '<i class="fas fa-save"></i> Actualizar Producto';
-        toggleForm('productForm');
-    }
-    
-    // CORREGIDO: Llama a la API para eliminar un producto
-    async function deleteProduct(id) {
-        if (confirm('¿Estás seguro de que quieres eliminar este producto? Esta acción no se puede deshacer.')) {
-            const token = localStorage.getItem('adminToken');
-            try {
-                const response = await fetch(`/api/products/${id}`, {
-NB                   method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                
-                const result = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(result.message || 'Error al eliminar el producto');
-                }
-                
-                showMessage('Producto eliminado correctamente', 'success', 'productsMessage');
-                loadProducts(); // Recarga la lista
-            } catch (error) {
-                showMessage(error.message, 'error', 'productsMessage');
-LOS       }
-        }
-    }
-    
-    // CORREGIDO: Llama a un endpoint de exportación (asumiendo que existe)
-    function exportProducts() {
-        alert('Iniciando descarga de productos... (Esta función requiere un endpoint /api/products/export en el backend)');
-        // Asumiendo que tienes un endpoint protegido para exportar
-        const token = localStorage.getItem('adminToken');
-        fetch('/api/products/export', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Error al exportar');
-            return response.blob();
-        })
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'productos.csv'; // O el formato que genere tu backend
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-        })
-        .catch(err => showMessage(err.message, 'error', 'productsMessage'));
-    }
-</script>
+    async function handleProductSubmit(e) {
+        e.preventDefault();
+        
+        // Mostrar loading
+        const submitBtn = document.getElementById('productFormSubmit');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Recoger datos del formulario
+            const formData = new FormData();
+            formData.append('name', document.getElementById('productName').value);
+            formData.append('price', parseFloat(document.getElementById('productPrice').value));
+            formData.append('category', document.getElementById('productCategory').value);
+            formData.append('stock', parseInt(document.getElementById('productStock').value));
+            formData.append('description', document.getElementById('productDescription').value);
+            formData.append('featured', document.getElementById('productFeatured').checked);
+            
+            // Agregar tallas
+            const sizes = Array.from(document.querySelectorAll('input[name="sizes"]:checked'))
+                .map(cb => cb.value);
+            formData.append('sizes', JSON.stringify(sizes));
+            
+            // Agregar imagen si existe
+            const imageFile = document.getElementById('productImage').files[0];
+            if (imageFile) {
+                formData.append('image', imageFile);
+            }
+            
+            const productId = document.getElementById('productId').value;
+            const method = productId ? 'PUT' : 'POST';
+            const endpoint = productId ? `/admin/products/${productId}` : '/admin/products';
+            
+            // Hacer request a la API
+            const token = localStorage.getItem('adminToken');
+            const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                method: method,
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                    // No establecer Content-Type para FormData, el navegador lo hará automáticamente
+                },
+                body: formData
+            });
+            
+            if (response.status === 401) {
+                localStorage.removeItem('adminToken');
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || `Error ${response.status}: ${response.statusText}`);
+            }
+            
+            const result = await response.json();
+            
+            // Mostrar mensaje de éxito
+            const action = productId ? 'actualizado' : 'guardado';
+            showMessage(`Producto ${action} correctamente`, 'success', 'productMessage');
+            
+            // Recargar lista y cerrar formulario después de 2 segundos
+            setTimeout(() => {
+                toggleForm('productForm');
+                loadProducts();
+                updateDashboardStats();
+            }, 2000);
+            
+        } catch (error) {
+            console.error('Error guardando producto:', error);
+            showMessage('Error al guardar el producto: ' + error.message, 'error', 'productMessage');
+        } finally {
+            // Restaurar botón
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    }
+
+    async function loadProducts() {
+        try {
+            const products = await apiRequest('/products');
+            displayProducts(products);
+            
+        } catch (error) {
+            console.error('Error cargando productos:', error);
+            showMessage('Error al cargar los productos: ' + error.message, 'error', 'productsMessage');
+            
+            // Mostrar tabla vacía
+            document.getElementById('productsList').innerHTML = `
+                <tr>
+                    <td colspan="8" style="text-align: center; padding: 40px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                        <p>Error al cargar los productos</p>
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    function displayProducts(products) {
+        const productsList = document.getElementById('productsList');
+        const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
+        const categoryFilter = document.getElementById('filterCategory').value;
+        const stockFilter = document.getElementById('filterStock').value;
+        
+        // Aplicar filtros
+        let filteredProducts = products.filter(product => {
+            const matchesSearch = product.name.toLowerCase().includes(searchTerm);
+            const matchesCategory = !categoryFilter || product.category === categoryFilter;
+            const matchesStock = 
+                !stockFilter || 
+                (stockFilter === 'low' && product.stock < 10) ||
+                (stockFilter === 'out' && product.stock === 0);
+            
+            return matchesSearch && matchesCategory && matchesStock;
+        });
+        
+        if (filteredProducts.length === 0) {
+            productsList.innerHTML = `
+                <tr>
+                    <td colspan="8" style="text-align: center; padding: 40px;">
+                        <i class="fas fa-box-open" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                        <p>No se encontraron productos</p>
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+        
+        productsList.innerHTML = filteredProducts.map(product => `
+            <tr>
+                <td class="product-image-cell">
+                    <img src="${product.image || 'https://via.placeholder.com/60'}" alt="${product.name}" class="product-image">
+                </td>
+                <td>
+                    <strong>${product.name}</strong>
+                    ${product.featured ? '<span class="featured-badge">Destacado</span>' : ''}
+                </td>
+                <td>${getCategoryName(product.category)}</td>
+                <td>$${product.price ? product.price.toFixed(2) : '0.00'}</td>
+                <td>
+                    <span class="${product.stock < 10 ? 'trend-down' : 'trend-up'}">
+                        ${product.stock}
+                    </span>
+                </td>
+                <td>${product.sizes ? (Array.isArray(product.sizes) ? product.sizes.join(', ') : product.sizes) : 'N/A'}</td>
+                <td>
+                    <span class="status-badge status-${product.status || 'active'}">
+                        ${(product.status || 'active') === 'active' ? 'Activo' : 'Inactivo'}
+                    </span>
+                </td>
+                <td>
+                    <div class="product-actions">
+                        <button class="admin-btn small" onclick="editProduct('${product._id || product.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="admin-btn small danger" onclick="deleteProduct('${product._id || product.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    async function editProduct(id) {
+        try {
+            const product = await apiRequest(`/products/${id}`);
+            
+            // Llenar formulario con datos del producto
+            document.getElementById('productId').value = product._id || product.id;
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productCategory').value = product.category;
+            document.getElementById('productStock').value = product.stock;
+            document.getElementById('productDescription').value = product.description;
+            document.getElementById('productFeatured').checked = product.featured || false;
+            
+            // Marcar tallas
+            document.querySelectorAll('input[name="sizes"]').forEach(checkbox => {
+                const sizes = product.sizes ? (Array.isArray(product.sizes) ? product.sizes : JSON.parse(product.sizes)) : [];
+                checkbox.checked = sizes.includes(checkbox.value);
+            });
+            
+            // Mostrar imagen si existe
+            if (product.image) {
+                document.getElementById('imagePreview').innerHTML = `
+                    <img src="${product.image}" alt="Vista previa">
+                    <p>Vista previa de la imagen</p>
+                `;
+            }
+            
+            // Actualizar interfaz
+            document.getElementById('productFormTitle').innerHTML = '<i class="fas fa-edit"></i> Editar Producto';
+            document.getElementById('productFormSubmit').innerHTML = '<i class="fas fa-save"></i> Actualizar Producto';
+            
+            toggleForm('productForm');
+            
+        } catch (error) {
+            console.error('Error cargando producto para editar:', error);
+            showMessage('Error al cargar el producto para editar: ' + error.message, 'error', 'productsMessage');
+        }
+    }
+
+    async function deleteProduct(id) {
+        if (!confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+            return;
+        }
+        
+        try {
+            await apiRequest(`/admin/products/${id}`, {
+                method: 'DELETE'
+            });
+            
+            showMessage('Producto eliminado correctamente', 'success', 'productsMessage');
+            loadProducts();
+            updateDashboardStats();
+            
+        } catch (error) {
+            console.error('Error eliminando producto:', error);
+            showMessage('Error al eliminar el producto: ' + error.message, 'error', 'productsMessage');
+        }
+    }
+
+    function getCategoryName(categoryKey) {
+        const categories = {
+            'conjuntos': 'Conjuntos',
+            'leggins': 'Leggings',
+            'tops': 'Tops Deportivos',
+            'enterizos': 'Enterizos',
+            'calcetas': 'Calcetas',
+            'sweaters': 'Sudaderas'
+        };
+        return categories[categoryKey] || categoryKey;
+    }
+
+    function applyFilters() {
+        // Recargar productos para aplicar filtros
+        loadProducts();
+    }
+
+    function previewImage(file) {
+        const preview = document.getElementById('imagePreview');
+        if (file) {
+            // Validar tamaño (5MB máximo)
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage('La imagen no puede ser mayor a 5MB', 'error', 'productMessage');
+                return;
+            }
+            
+            // Validar tipo
+            if (!file.type.match('image.*')) {
+                showMessage('Solo se permiten archivos de imagen', 'error', 'productMessage');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.innerHTML = `
+                    <img src="${e.target.result}" alt="Vista previa">
+                    <p>Vista previa de la imagen</p>
+                `;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function resetProductForm() {
+        document.getElementById('productFormTitle').innerHTML = '<i class="fas fa-plus"></i> Agregar Nuevo Producto';
+        document.getElementById('productFormElement').reset();
+        document.getElementById('productId').value = '';
+        document.getElementById('productFormSubmit').innerHTML = '<i class="fas fa-save"></i> Guardar Producto';
+        document.getElementById('imagePreview').innerHTML = '';
+        document.getElementById('productMessage').style.display = 'none';
+    }
+
+    async function exportProducts() {
+        try {
+            const products = await apiRequest('/products');
+            
+            if (products.length === 0) {
+                alert('No hay productos para exportar');
+                return;
+            }
+            
+            const csvContent = "data:text/csv;charset=utf-8," 
+                + "Nombre,Categoría,Precio,Stock,Tallas,Destacado,Estado\n"
+                + products.map(p => 
+                    `"${p.name}","${getCategoryName(p.category)}",${p.price},${p.stock},"${p.sizes ? (Array.isArray(p.sizes) ? p.sizes.join(', ') : p.sizes) : 'N/A'}","${p.featured ? 'Sí' : 'No'}","${p.status || 'active'}"`
+                ).join("\n");
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "productos_lisport.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showMessage('Productos exportados correctamente', 'success', 'productsMessage');
+            
+        } catch (error) {
+            console.error('Error exportando productos:', error);
+            showMessage('Error al exportar los productos: ' + error.message, 'error', 'productsMessage');
+        }
+    }
+
+    function showMessage(message, type, elementId) {
+        const messageElement = document.getElementById(elementId);
+        messageElement.innerHTML = `
+            <div class="admin-message message-${type}">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                ${message}
+            </div>
+        `;
+        messageElement.style.display = 'block';
+        
+        setTimeout(() => {
+            messageElement.style.display = 'none';
+        }, 5000);
+    }
+    </script>
 </body>
 </html>
