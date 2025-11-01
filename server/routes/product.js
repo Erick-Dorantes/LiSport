@@ -266,9 +266,9 @@ router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
 });
 
 // @desc    Crear nuevo producto - RUTA CORREGIDA
-// @route   POST /api/products/admin/products
+// @route   POST /api/products
 // @access  Private/Admin
-router.post('/admin/products', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
+router.post('/', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
     try {
         console.log('📦 Creando producto - Body:', req.body);
         console.log('📁 Archivo:', req.file);
@@ -334,9 +334,9 @@ router.post('/admin/products', authenticateToken, requireAdmin, upload.single('i
 });
 
 // @desc    Actualizar producto - RUTA CORREGIDA
-// @route   PUT /api/products/admin/products/:id
+// @route   PUT /api/products/:id
 // @access  Private/Admin
-router.put('/admin/products/:id', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
+router.put('/:id', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
     try {
         const { id } = req.params;
         const { name, description, price, category, sizes, stock, featured } = req.body;
@@ -399,9 +399,9 @@ router.put('/admin/products/:id', authenticateToken, requireAdmin, upload.single
 });
 
 // @desc    Eliminar producto - RUTA CORREGIDA
-// @route   DELETE /api/products/admin/products/:id
+// @route   DELETE /api/products/:id
 // @access  Private/Admin
-router.delete('/admin/products/:id', authenticateToken, requireAdmin, async (req, res) => {
+router.delete('/:id', authenticateToken, requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         console.log(`🗑️ Eliminando producto: ${id}`);
