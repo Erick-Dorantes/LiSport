@@ -70,7 +70,7 @@ router.get('/featured', async (req, res) => {
         const products = await Product.findAll({
             where: { 
                 featured: true,
-                status: 'active'
+                status: true
             },
             order: [['createdAt', 'DESC']]
         });
@@ -98,7 +98,7 @@ router.get('/category/:category', async (req, res) => {
         const products = await Product.findAll({
             where: { 
                 category: category,
-                status: 'active'
+                status: true
             },
             order: [['createdAt', 'DESC']]
         });
@@ -213,7 +213,7 @@ router.get('/admin/stats', authenticateToken, requireAdmin, async (req, res) => 
         const lowStockProducts = await Product.count({ 
             where: { 
                 stock: { [Op.lt]: 10 },
-                status: 'active'
+                status: true
             } 
         });
         
@@ -266,9 +266,9 @@ router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
 });
 
 // @desc    Crear nuevo producto - RUTA CORREGIDA
-// @route   POST /api/products
+// @route   POST /api/products/admin/products
 // @access  Private/Admin
-router.post('/', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
+router.post('/admin/products', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
     try {
         console.log('📦 Creando producto - Body:', req.body);
         console.log('📁 Archivo:', req.file);
@@ -290,7 +290,7 @@ router.post('/', authenticateToken, requireAdmin, upload.single('image'), async 
             category: category,
             stock: parseInt(stock) || 0,
             featured: featured === 'true' || featured === true,
-            status: 'active'
+            status: true
         };
 
         // Procesar tallas
@@ -334,9 +334,9 @@ router.post('/', authenticateToken, requireAdmin, upload.single('image'), async 
 });
 
 // @desc    Actualizar producto - RUTA CORREGIDA
-// @route   PUT /api/products/:id
+// @route   PUT /api/products/admin/products/:id
 // @access  Private/Admin
-router.put('/:id', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
+router.put('/admin/products/:id', authenticateToken, requireAdmin, upload.single('image'), async (req, res) => {
     try {
         const { id } = req.params;
         const { name, description, price, category, sizes, stock, featured } = req.body;
@@ -399,9 +399,9 @@ router.put('/:id', authenticateToken, requireAdmin, upload.single('image'), asyn
 });
 
 // @desc    Eliminar producto - RUTA CORREGIDA
-// @route   DELETE /api/products/:id
+// @route   DELETE /api/products/admin/products/:id
 // @access  Private/Admin
-router.delete('/:id', authenticateToken, requireAdmin, async (req, res) => {
+router.delete('/admin/products/:id', authenticateToken, requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         console.log(`🗑️ Eliminando producto: ${id}`);
