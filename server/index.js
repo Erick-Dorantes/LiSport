@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const adminRoutes = require('./routes/adminRoutes'); // 🆕 AGREGAR ESTA LÍNEA
 // Esta línea ahora puede leer 'process.env.DATABASE_URL' sin problema
 const { connectDB } = require('./config/database'); 
 const { createInitialAdmin } = require('./models/User');
@@ -54,6 +55,7 @@ next();
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/admin', adminRoutes); // 🆕 AGREGAR ESTA LÍNEA
 
 // Ruta de salud
 app.get('/api/health', (req, res) => {
