@@ -1081,57 +1081,54 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>
-                            <i class="fas fa-ruler" style="margin-right: 8px;"></i>
-                            Tallas Disponibles
-                        </label>
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="XS" autocomplete="off">
-                                <span>XS</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="S" autocomplete="off">
-                                <span>S</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="M" autocomplete="off">
-                                <span>M</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="L" autocomplete="off">
-                                <span>L</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="XL" autocomplete="off">
-                                <span>XL</span>
-                            </label>
-                        </div>
-                    </div>
+    <label style="display: block; margin-bottom: 8px;">
+        <i class="fas fa-ruler" style="margin-right: 8px;"></i>
+        Tallas Disponibles
+    </label>
+    <div class="checkbox-group">
+        <label class="checkbox-item" for="sizeXS">
+            <input type="checkbox" id="sizeXS" name="sizes" value="XS" autocomplete="off">
+            <span>XS</span>
+        </label>
+        <label class="checkbox-item" for="sizeS">
+            <input type="checkbox" id="sizeS" name="sizes" value="S" autocomplete="off">
+            <span>S</span>
+        </label>
+        <label class="checkbox-item" for="sizeM">
+            <input type="checkbox" id="sizeM" name="sizes" value="M" autocomplete="off">
+            <span>M</span>
+        </label>
+        <label class="checkbox-item" for="sizeL">
+            <input type="checkbox" id="sizeL" name="sizes" value="L" autocomplete="off">
+            <span>L</span>
+        </label>
+        <label class="checkbox-item" for="sizeXL">
+            <input type="checkbox" id="sizeXL" name="sizes" value="XL" autocomplete="off">
+            <span>XL</span>
+        </label>
+    </div>
+</div>                    <div class="form-group">
+    <label for="productImage" style="display: block; margin-bottom: 8px;">
+        <i class="fas fa-image" style="margin-right: 8px;"></i>
+        Imagen del Producto
+    </label>
+    <div class="file-upload" onclick="document.getElementById('productImage').click()">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Haz clic para subir una imagen</p>
+        <small>Formatos: JPG, PNG, GIF | Máx: 5MB</small>
+    </div>
+    <input type="file" id="productImage" name="image" accept="image/*" style="display: none;" 
+           onchange="previewImage(this.files[0])" autocomplete="off">
+    <div id="imagePreview" class="image-preview"></div>
+</div>
                     
                     <div class="form-group">
-                        <label>
-                            <i class="fas fa-image" style="margin-right: 8px;"></i>
-                            Imagen del Producto
-                        </label>
-                        <div class="file-upload" onclick="document.getElementById('productImage').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Haz clic para subir una imagen</p>
-                            <small>Formatos: JPG, PNG, GIF | Máx: 5MB</small>
-                        </div>
-                        <input type="file" id="productImage" name="image" accept="image/*" style="display: none;" 
-                               onchange="previewImage(this.files[0])" autocomplete="off">
-                        <div id="imagePreview" class="image-preview"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="productFeatured" name="featured" value="true" autocomplete="off">
-                            <span><strong>Producto Destacado</strong></span>
-                        </label>
-                        <small>Los productos destacados aparecen en la página principal</small>
-                    </div>
-                    
+    <label class="checkbox-item" for="productFeatured">
+        <input type="checkbox" id="productFeatured" name="featured" value="true" autocomplete="off">
+        <span><strong>Producto Destacado</strong></span>
+    </label>
+    <small>Los productos destacados aparecen en la página principal</small>
+</div>
                     <div class="admin-actions">
                         <button type="submit" class="admin-btn success" id="productFormSubmit">
                             <i class="fas fa-save"></i> Guardar Producto
