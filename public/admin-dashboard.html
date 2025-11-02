@@ -974,7 +974,8 @@
                                 Contraseña Actual
                             </label>
                             <input type="password" id="currentPassword" name="currentPassword" required 
-                                   placeholder="Ingresa tu contraseña actual">
+                                   placeholder="Ingresa tu contraseña actual"
+                                   autocomplete="current-password">
                         </div>
                         <div class="form-group">
                             <label for="newPassword">
@@ -982,7 +983,8 @@
                                 Nueva Contraseña
                             </label>
                             <input type="password" id="newPassword" name="newPassword" required minlength="6"
-                                   placeholder="Mínimo 6 caracteres">
+                                   placeholder="Mínimo 6 caracteres"
+                                   autocomplete="new-password">
                         </div>
                         <div class="form-group">
                             <label for="confirmPassword">
@@ -990,7 +992,8 @@
                                 Confirmar Contraseña
                             </label>
                             <input type="password" id="confirmPassword" name="confirmPassword" required
-                                   placeholder="Repite la nueva contraseña">
+                                   placeholder="Repite la nueva contraseña"
+                                   autocomplete="new-password">
                         </div>
                     </div>
                     <div class="admin-actions">
@@ -1025,7 +1028,8 @@
                                 Nombre del Producto
                             </label>
                             <input type="text" id="productName" name="name" required 
-                                   placeholder="Ej: Legging Deportivo Power Fit">
+                                   placeholder="Ej: Legging Deportivo Power Fit"
+                                   autocomplete="off">
                         </div>
                         
                         <div class="form-group">
@@ -1034,7 +1038,8 @@
                                 Precio ($)
                             </label>
                             <input type="number" id="productPrice" name="price" step="0.01" min="0" required 
-                                   placeholder="0.00">
+                                   placeholder="0.00"
+                                   autocomplete="transaction-amount">
                         </div>
                         
                         <div class="form-group">
@@ -1042,7 +1047,8 @@
                                 <i class="fas fa-folder" style="margin-right: 8px;"></i>
                                 Categoría
                             </label>
-                            <select id="productCategory" name="category" required>
+                            <select id="productCategory" name="category" required
+                                    autocomplete="section-product category">
                                 <option value="">Seleccionar categoría</option>
                                 <option value="conjuntos">Conjuntos</option>
                                 <option value="leggins">Leggings</option>
@@ -1059,7 +1065,8 @@
                                 Stock Disponible
                             </label>
                             <input type="number" id="productStock" name="stock" min="0" required 
-                                   placeholder="0">
+                                   placeholder="0"
+                                   autocomplete="off">
                         </div>
                     </div>
                     
@@ -1069,7 +1076,8 @@
                             Descripción del Producto
                         </label>
                         <textarea id="productDescription" name="description" required 
-                                  placeholder="Describe las características y beneficios del producto..."></textarea>
+                                  placeholder="Describe las características y beneficios del producto..."
+                                  autocomplete="off"></textarea>
                     </div>
                     
                     <div class="form-group">
@@ -1079,23 +1087,23 @@
                         </label>
                         <div class="checkbox-group">
                             <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="XS">
+                                <input type="checkbox" name="sizes" value="XS" autocomplete="off">
                                 <span>XS</span>
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="S">
+                                <input type="checkbox" name="sizes" value="S" autocomplete="off">
                                 <span>S</span>
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="M">
+                                <input type="checkbox" name="sizes" value="M" autocomplete="off">
                                 <span>M</span>
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="L">
+                                <input type="checkbox" name="sizes" value="L" autocomplete="off">
                                 <span>L</span>
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox" name="sizes" value="XL">
+                                <input type="checkbox" name="sizes" value="XL" autocomplete="off">
                                 <span>XL</span>
                             </label>
                         </div>
@@ -1112,13 +1120,13 @@
                             <small>Formatos: JPG, PNG, GIF | Máx: 5MB</small>
                         </div>
                         <input type="file" id="productImage" name="image" accept="image/*" style="display: none;" 
-                               onchange="previewImage(this.files[0])">
+                               onchange="previewImage(this.files[0])" autocomplete="off">
                         <div id="imagePreview" class="image-preview"></div>
                     </div>
                     
                     <div class="form-group">
                         <label class="checkbox-item">
-                            <input type="checkbox" id="productFeatured" name="featured" value="true">
+                            <input type="checkbox" id="productFeatured" name="featured" value="true" autocomplete="off">
                             <span><strong>Producto Destacado</strong></span>
                         </label>
                         <small>Los productos destacados aparecen en la página principal</small>
@@ -1154,11 +1162,11 @@
                             <i class="fas fa-search" style="margin-right: 8px;"></i>
                             Buscar:
                         </label>
-                        <input type="text" id="searchProduct" placeholder="Buscar por nombre...">
+                        <input type="text" id="searchProduct" placeholder="Buscar por nombre..." autocomplete="off">
                     </div>
                     <div class="filter-group">
                         <label for="filterCategory">Categoría:</label>
-                        <select id="filterCategory">
+                        <select id="filterCategory" autocomplete="off">
                             <option value="">Todas las categorías</option>
                             <option value="conjuntos">Conjuntos</option>
                             <option value="leggins">Leggings</option>
@@ -1170,7 +1178,7 @@
                     </div>
                     <div class="filter-group">
                         <label for="filterStock">Stock:</label>
-                        <select id="filterStock">
+                        <select id="filterStock" autocomplete="off">
                             <option value="">Todo el stock</option>
                             <option value="low">Stock bajo (< 10)</option>
                             <option value="out">Sin stock</option>
