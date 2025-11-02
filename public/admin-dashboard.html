@@ -1080,55 +1080,59 @@
                                   autocomplete="off"></textarea>
                     </div>
                     
+                    <!-- SECCIÓN CORREGIDA: Tallas Disponibles -->
                     <div class="form-group">
-    <label style="display: block; margin-bottom: 8px;">
-        <i class="fas fa-ruler" style="margin-right: 8px;"></i>
-        Tallas Disponibles
-    </label>
-    <div class="checkbox-group">
-        <label class="checkbox-item" for="sizeXS">
-            <input type="checkbox" id="sizeXS" name="sizes" value="XS" autocomplete="off">
-            <span>XS</span>
-        </label>
-        <label class="checkbox-item" for="sizeS">
-            <input type="checkbox" id="sizeS" name="sizes" value="S" autocomplete="off">
-            <span>S</span>
-        </label>
-        <label class="checkbox-item" for="sizeM">
-            <input type="checkbox" id="sizeM" name="sizes" value="M" autocomplete="off">
-            <span>M</span>
-        </label>
-        <label class="checkbox-item" for="sizeL">
-            <input type="checkbox" id="sizeL" name="sizes" value="L" autocomplete="off">
-            <span>L</span>
-        </label>
-        <label class="checkbox-item" for="sizeXL">
-            <input type="checkbox" id="sizeXL" name="sizes" value="XL" autocomplete="off">
-            <span>XL</span>
-        </label>
-    </div>
-</div>                    <div class="form-group">
-    <label for="productImage" style="display: block; margin-bottom: 8px;">
-        <i class="fas fa-image" style="margin-right: 8px;"></i>
-        Imagen del Producto
-    </label>
-    <div class="file-upload" onclick="document.getElementById('productImage').click()">
-        <i class="fas fa-cloud-upload-alt"></i>
-        <p>Haz clic para subir una imagen</p>
-        <small>Formatos: JPG, PNG, GIF | Máx: 5MB</small>
-    </div>
-    <input type="file" id="productImage" name="image" accept="image/*" style="display: none;" 
-           onchange="previewImage(this.files[0])" autocomplete="off">
-    <div id="imagePreview" class="image-preview"></div>
-</div>
+                        <div style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">
+                            <i class="fas fa-ruler" style="margin-right: 8px;"></i>
+                            Tallas Disponibles
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item" for="sizeXS">
+                                <input type="checkbox" id="sizeXS" name="sizes" value="XS" autocomplete="off">
+                                <span>XS</span>
+                            </label>
+                            <label class="checkbox-item" for="sizeS">
+                                <input type="checkbox" id="sizeS" name="sizes" value="S" autocomplete="off">
+                                <span>S</span>
+                            </label>
+                            <label class="checkbox-item" for="sizeM">
+                                <input type="checkbox" id="sizeM" name="sizes" value="M" autocomplete="off">
+                                <span>M</span>
+                            </label>
+                            <label class="checkbox-item" for="sizeL">
+                                <input type="checkbox" id="sizeL" name="sizes" value="L" autocomplete="off">
+                                <span>L</span>
+                            </label>
+                            <label class="checkbox-item" for="sizeXL">
+                                <input type="checkbox" id="sizeXL" name="sizes" value="XL" autocomplete="off">
+                                <span>XL</span>
+                            </label>
+                        </div>
+                    </div>
                     
                     <div class="form-group">
-    <label class="checkbox-item" for="productFeatured">
-        <input type="checkbox" id="productFeatured" name="featured" value="true" autocomplete="off">
-        <span><strong>Producto Destacado</strong></span>
-    </label>
-    <small>Los productos destacados aparecen en la página principal</small>
-</div>
+                        <label for="productImage" style="display: block; margin-bottom: 8px;">
+                            <i class="fas fa-image" style="margin-right: 8px;"></i>
+                            Imagen del Producto
+                        </label>
+                        <div class="file-upload" onclick="document.getElementById('productImage').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Haz clic para subir una imagen</p>
+                            <small>Formatos: JPG, PNG, GIF | Máx: 5MB</small>
+                        </div>
+                        <input type="file" id="productImage" name="image" accept="image/*" style="display: none;" 
+                               onchange="previewImage(this.files[0])" autocomplete="off">
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-item" for="productFeatured">
+                            <input type="checkbox" id="productFeatured" name="featured" value="true" autocomplete="off">
+                            <span><strong>Producto Destacado</strong></span>
+                        </label>
+                        <small>Los productos destacados aparecen en la página principal</small>
+                    </div>
+                    
                     <div class="admin-actions">
                         <button type="submit" class="admin-btn success" id="productFormSubmit">
                             <i class="fas fa-save"></i> Guardar Producto
@@ -1223,6 +1227,60 @@
     // Script para el panel de administración con conexión a Render - CORREGIDO
     const API_BASE_URL = 'https://lisport-1.onrender.com/api';
 
+    // Función para diagnosticar y corregir problemas de labels
+    function diagnoseAndFixLabels() {
+        console.log('🔍 Diagnóstico de etiquetas...');
+        
+        const labels = document.querySelectorAll('label');
+        let fixedCount = 0;
+        
+        labels.forEach(label => {
+            const forAttr = label.getAttribute('for');
+            const hasInputChild = label.querySelector('input, select, textarea');
+            
+            // Si no tiene 'for' y no contiene un input, es un label problemático
+            if (!forAttr && !hasInputChild) {
+                console.log(`❌ Label problemático: "${label.textContent.trim()}"`);
+                
+                // Intentar encontrar el siguiente elemento input/select/textarea
+                const nextElement = label.nextElementSibling;
+                if (nextElement && (nextElement.matches('input, select, textarea'))) {
+                    // Crear ID si no existe
+                    if (!nextElement.id) {
+                        const fieldName = nextElement.name || 'field';
+                        const randomId = `${fieldName}_${Math.random().toString(36).substr(2, 6)}`;
+                        nextElement.id = randomId;
+                    }
+                    
+                    // Asociar el label
+                    label.setAttribute('for', nextElement.id);
+                    console.log(`✅ Label asociado con: ${nextElement.id}`);
+                    fixedCount++;
+                } else {
+                    // Si no hay campo asociado, convertir a div
+                    const div = document.createElement('div');
+                    div.innerHTML = label.innerHTML;
+                    div.className = label.className;
+                    div.style.cssText = label.style.cssText;
+                    label.parentNode.replaceChild(div, label);
+                    console.log(`✅ Label convertido a div: "${div.textContent.trim()}"`);
+                    fixedCount++;
+                }
+            }
+            
+            // Verificar si el 'for' apunta a un elemento que no existe
+            if (forAttr && !document.getElementById(forAttr)) {
+                console.log(`❌ Label apunta a ID inexistente: ${forAttr}`);
+            }
+        });
+        
+        if (fixedCount > 0) {
+            console.log(`✅ Se corrigieron ${fixedCount} problemas de etiquetas`);
+        } else {
+            console.log('✅ Todos los labels están correctamente asociados');
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Inicializando panel de administración...');
         
@@ -1232,6 +1290,11 @@
             window.location.href = 'admin-login.html';
             return;
         }
+        
+        // Ejecutar diagnóstico de labels
+        setTimeout(() => {
+            diagnoseAndFixLabels();
+        }, 1000);
         
         // Actualizar año actual
         document.getElementById('currentYear').textContent = new Date().getFullYear();
@@ -1254,7 +1317,10 @@
 
     function setupDarkMode() {
         const themeToggle = document.getElementById('themeToggleAdmin');
+        if (!themeToggle) return;
+        
         const themeIcon = themeToggle.querySelector('i');
+        if (!themeIcon) return;
         
         // Verificar preferencia guardada
         const savedTheme = localStorage.getItem('adminTheme');
@@ -1281,31 +1347,54 @@
 
     function setupEventListeners() {
         // Botones principales
-        document.getElementById('changePasswordBtn').addEventListener('click', function() {
-            toggleForm('changePasswordForm');
-        });
+        const changePasswordBtn = document.getElementById('changePasswordBtn');
+        const addProductBtn = document.getElementById('addProductBtn');
+        const passwordForm = document.getElementById('passwordForm');
+        const productFormElement = document.getElementById('productFormElement');
+        const searchProduct = document.getElementById('searchProduct');
+        const filterCategory = document.getElementById('filterCategory');
+        const filterStock = document.getElementById('filterStock');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        if (changePasswordBtn) {
+            changePasswordBtn.addEventListener('click', function() {
+                toggleForm('changePasswordForm');
+            });
+        }
         
-        document.getElementById('addProductBtn').addEventListener('click', function() {
-            resetProductForm();
-            toggleForm('productForm');
-        });
+        if (addProductBtn) {
+            addProductBtn.addEventListener('click', function() {
+                resetProductForm();
+                toggleForm('productForm');
+            });
+        }
         
-        // Formulario de contraseña
-        document.getElementById('passwordForm').addEventListener('submit', handlePasswordChange);
+        if (passwordForm) {
+            passwordForm.addEventListener('submit', handlePasswordChange);
+        }
         
-        // Formulario de producto
-        document.getElementById('productFormElement').addEventListener('submit', handleProductSubmit);
+        if (productFormElement) {
+            productFormElement.addEventListener('submit', handleProductSubmit);
+        }
         
-        // Filtros
-        document.getElementById('searchProduct').addEventListener('input', applyFilters);
-        document.getElementById('filterCategory').addEventListener('change', applyFilters);
-        document.getElementById('filterStock').addEventListener('change', applyFilters);
+        if (searchProduct) {
+            searchProduct.addEventListener('input', applyFilters);
+        }
         
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            logout();
-        });
+        if (filterCategory) {
+            filterCategory.addEventListener('change', applyFilters);
+        }
+        
+        if (filterStock) {
+            filterStock.addEventListener('change', applyFilters);
+        }
+        
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
+            });
+        }
     }
 
     function setupMobileNavigation() {
@@ -1313,29 +1402,33 @@
         const sidebar = document.getElementById('adminSidebar');
         const overlay = document.getElementById('overlay');
         
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-        
-        overlay.addEventListener('click', function() {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-        
-        // Cerrar sidebar al hacer clic en un enlace (en móvil)
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', function() {
-                if (window.innerWidth <= 992) {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                }
+        if (sidebarToggle && sidebar && overlay) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
             });
-        });
+            
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+            
+            // Cerrar sidebar al hacer clic en un enlace (en móvil)
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth <= 992) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+        }
     }
 
     function toggleForm(formId) {
         const form = document.getElementById(formId);
+        if (!form) return;
+        
         const isActive = form.classList.contains('active');
         
         // Ocultar todos los formularios
@@ -1424,8 +1517,11 @@
             document.getElementById('totalCategories').textContent = categories;
             
             // Actualizar badges del menú
-            document.getElementById('productsBadge').textContent = totalProducts;
-            document.getElementById('categoriesBadge').textContent = categories;
+            const productsBadge = document.getElementById('productsBadge');
+            const categoriesBadge = document.getElementById('categoriesBadge');
+            
+            if (productsBadge) productsBadge.textContent = totalProducts;
+            if (categoriesBadge) categoriesBadge.textContent = categories;
             
             console.log('Estadísticas actualizadas:', { totalProducts, featuredProducts, lowStockProducts, categories });
             
@@ -1636,25 +1732,30 @@
             showMessage('Error al cargar los productos: ' + error.message, 'error', 'productsMessage');
             
             // Mostrar tabla vacía
-            document.getElementById('productsList').innerHTML = `
-                <tr>
-                    <td colspan="8" style="text-align: center; padding: 40px;">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
-                        <p>Error al cargar los productos</p>
-                        <button class="admin-btn small" onclick="loadProducts()">
-                            <i class="fas fa-redo"></i> Reintentar
-                        </button>
-                    </td>
-                </tr>
-            `;
+            const productsList = document.getElementById('productsList');
+            if (productsList) {
+                productsList.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px;">
+                            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                            <p>Error al cargar los productos</p>
+                            <button class="admin-btn small" onclick="loadProducts()">
+                                <i class="fas fa-redo"></i> Reintentar
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
         }
     }
 
     function displayProducts(products) {
         const productsList = document.getElementById('productsList');
-        const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
-        const categoryFilter = document.getElementById('filterCategory').value;
-        const stockFilter = document.getElementById('filterStock').value;
+        if (!productsList) return;
+        
+        const searchTerm = document.getElementById('searchProduct')?.value.toLowerCase() || '';
+        const categoryFilter = document.getElementById('filterCategory')?.value || '';
+        const stockFilter = document.getElementById('filterStock')?.value || '';
         
         // Aplicar filtros
         let filteredProducts = products.filter(product => {
@@ -1809,14 +1910,21 @@
     }
 
     function clearFilters() {
-        document.getElementById('searchProduct').value = '';
-        document.getElementById('filterCategory').value = '';
-        document.getElementById('filterStock').value = '';
+        const searchProduct = document.getElementById('searchProduct');
+        const filterCategory = document.getElementById('filterCategory');
+        const filterStock = document.getElementById('filterStock');
+        
+        if (searchProduct) searchProduct.value = '';
+        if (filterCategory) filterCategory.value = '';
+        if (filterStock) filterStock.value = '';
+        
         loadProducts();
     }
 
     function previewImage(file) {
         const preview = document.getElementById('imagePreview');
+        if (!preview) return;
+        
         if (file) {
             // Validar tamaño (5MB máximo)
             if (file.size > 5 * 1024 * 1024) {
@@ -1842,12 +1950,18 @@
     }
 
     function resetProductForm() {
-        document.getElementById('productFormTitle').innerHTML = '<i class="fas fa-plus"></i> Agregar Nuevo Producto';
-        document.getElementById('productFormElement').reset();
+        const productFormTitle = document.getElementById('productFormTitle');
+        const productFormElement = document.getElementById('productFormElement');
+        const productFormSubmit = document.getElementById('productFormSubmit');
+        const imagePreview = document.getElementById('imagePreview');
+        const productMessage = document.getElementById('productMessage');
+        
+        if (productFormTitle) productFormTitle.innerHTML = '<i class="fas fa-plus"></i> Agregar Nuevo Producto';
+        if (productFormElement) productFormElement.reset();
         document.getElementById('productId').value = '';
-        document.getElementById('productFormSubmit').innerHTML = '<i class="fas fa-save"></i> Guardar Producto';
-        document.getElementById('imagePreview').innerHTML = '';
-        document.getElementById('productMessage').style.display = 'none';
+        if (productFormSubmit) productFormSubmit.innerHTML = '<i class="fas fa-save"></i> Guardar Producto';
+        if (imagePreview) imagePreview.innerHTML = '';
+        if (productMessage) productMessage.style.display = 'none';
     }
 
     async function exportProducts() {
@@ -1883,6 +1997,8 @@
 
     function showMessage(message, type, elementId) {
         const messageElement = document.getElementById(elementId);
+        if (!messageElement) return;
+        
         messageElement.innerHTML = `
             <div class="admin-message message-${type}">
                 <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
