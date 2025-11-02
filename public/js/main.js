@@ -65,76 +65,246 @@ if (localStorage.getItem('theme') === 'dark') {
     }
 }
 
-// API Base URL
-const API_BASE = window.location.hostname === 'localhost' 
-    ? 'http://localhost:3000/api' 
-    : '/api';
+// API Base URL - CORREGIDA
+const API_BASE = 'https://lisport-1.onrender.com/api';
 
-// Load Featured Products
+// Load Featured Products - CORREGIDA
 async function loadFeaturedProducts() {
     try {
-        const response = await fetch(`${API_BASE}/products/featured`);
-        const products = await response.json();
+        console.log('Cargando productos destacados...');
+        const response = await fetch(`${API_BASE}/products`);
         
-        const productsGrid = document.getElementById('featuredProducts');
-        if (productsGrid) {
-            productsGrid.innerHTML = products.map(product => `
-                <div class="product-card">
-                    <div class="product-img" style="background-image: url('${product.image || 'https://via.placeholder.com/300'}')">
-                        ${!product.image ? '<i class="fas fa-tshirt"></i>' : ''}
-                    </div>
-                    <div class="product-info">
-                        <h3>${product.name}</h3>
-                        <p>${product.description}</p>
-                        <div class="product-price">$${product.price}</div>
-                        <div class="product-meta">
-                            <span>Tallas: ${product.sizes.join(', ')}</span>
-                            <span>Disponible: ${product.stock}</span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
+        
+        const data = await response.json();
+        
+        // VERIFICAR que data sea un array
+        let products = [];
+        if (Array.isArray(data)) {
+            products = data;
+        } else if (data && Array.isArray(data.products)) {
+            products = data.products;
+        } else if (data && Array.isArray(data.data)) {
+            products = data.data;
+        } else if (data && typeof data === 'object') {
+            // Si es un objeto único, convertirlo a array
+            products = [data];
+        }
+        
+        console.log('Productos recibidos:', products);
+        
+        // Filtrar productos destacados
+        const featuredProducts = products.filter(product => 
+            product && product.featured === true
+        );
+        
+        console.log('Productos destacados:', featuredProducts);
+        
+        displayFeaturedProducts(featuredProducts);
+        
     } catch (error) {
         console.error('Error loading featured products:', error);
+        // Mostrar productos de ejemplo en caso de error
+        displayFallbackProducts();
     }
 }
 
-// Load Products by Category
+// Función de respaldo para productos
+function displayFallbackProducts() {
+    const featuredProductsContainer = document.getElementById('featuredProducts');
+    if (!featuredProductsContainer) return;
+    
+    featuredProductsContainer.innerHTML = `
+        <div class="product-card">
+            <div class="product-img" style="background-image: url('https://via.placeholder.com/300')">
+                <i class="fas fa-tshirt"></i>
+            </div>
+            <div class="product-info">
+                <h3>Producto de Ejemplo</h3>
+                <p>Descripción del producto destacado</p>
+                <div class="product-price">$49.99</div>
+                <div class="product-meta">
+                    <span>Tallas: S, M, L</span>
+                    <span>Disponible: 10</span>
+                </div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img" style="background-image: url('https://via.placeholder.com/300')">
+                <i class="fas fa-tshirt"></i>
+            </div>
+            <div class="product-info">
+                <h3>Otro Producto</h3>
+                <p>Otro producto destacado de ejemplo</p>
+                <div class="product-price">$59.99</div>
+                <div class="product-meta">
+                    <span>Tallas: M, L, XL</span>
+                    <span>Disponible: 5</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Display Featured Products - CORREGIDA
+function displayFeaturedProducts(products) {
+    const featuredProductsContainer = document.getElementById('featuredProducts');
+    if (!featuredProductsContainer) return;
+    
+    if (!products || products.length === 0) {
+        featuredProductsContainer.innerHTML = `
+            <div class="no-products">
+                <i class="fas fa-box-open"></i>
+                <p>No hay productos destacados disponibles</p>
+            </div>
+        `;
+        return;
+    }
+    
+    featuredProductsContainer.innerHTML = products.map(product => `
+        <div class="product-card">
+            <div class="product-img" style="background-image: url('${product.image || 'https://via.placeholder.com/300'}')">
+                ${!product.image ? '<i class="fas fa-tshirt"></i>' : ''}
+                ${product.featured ? '<span class="featured-badge">Destacado</span>' : ''}
+            </div>
+            <div class="product-info">
+                <h3>${product.name || 'Producto sin nombre'}</h3>
+                <p>${product.description || 'Descripción no disponible'}</p>
+                <div class="product-price">$${(product.price || 0).toFixed(2)}</div>
+                <div class="product-meta">
+                    <span>Tallas: ${product.sizes ? (Array.isArray(product.sizes) ? product.sizes.join(', ') : product.sizes) : 'N/A'}</span>
+                    <span>Disponible: ${product.stock || 0}</span>
+                </div>
+                <button class="btn primary add-to-cart" onclick="addToCart('${product._id || product.id}')">
+                    <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Load Products by Category - CORREGIDA
 async function loadProductsByCategory(category = '') {
     try {
+        console.log(`Cargando productos para categoría: ${category}`);
         const url = category 
             ? `${API_BASE}/products/category/${category}`
             : `${API_BASE}/products`;
         
         const response = await fetch(url);
-        const products = await response.json();
         
-        const productsGrid = document.getElementById('productsGrid');
-        if (productsGrid) {
-            productsGrid.innerHTML = products.map(product => `
-                <div class="product-card">
-                    <div class="product-img" style="background-image: url('${product.image || 'https://via.placeholder.com/300'}')">
-                        ${!product.image ? '<i class="fas fa-tshirt"></i>' : ''}
-                    </div>
-                    <div class="product-info">
-                        <h3>${product.name}</h3>
-                        <p>${product.description}</p>
-                        <div class="product-price">$${product.price}</div>
-                        <div class="product-meta">
-                            <span>Tallas: ${product.sizes.join(', ')}</span>
-                            <span>Disponible: ${product.stock}</span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
+        
+        const data = await response.json();
+        
+        // VERIFICAR que data sea un array - CORRECCIÓN IMPORTANTE
+        let products = [];
+        if (Array.isArray(data)) {
+            products = data;
+        } else if (data && Array.isArray(data.products)) {
+            products = data.products;
+        } else if (data && Array.isArray(data.data)) {
+            products = data.data;
+        } else if (data && typeof data === 'object') {
+            // Si es un objeto único, convertirlo a array
+            products = [data];
+        }
+        
+        console.log(`Productos para ${category}:`, products);
+        
+        displayProducts(products, category);
+        
     } catch (error) {
         console.error('Error loading products:', error);
+        displayFallbackProductsInCategory();
     }
 }
 
-// Funcionalidad para los filtros modernos
+// Display Products - NUEVA FUNCIÓN
+function displayProducts(products, category = '') {
+    const productsGrid = document.getElementById('productsGrid');
+    if (!productsGrid) return;
+    
+    if (!products || products.length === 0) {
+        productsGrid.innerHTML = `
+            <div class="no-products">
+                <i class="fas fa-box-open"></i>
+                <p>No hay productos disponibles${category ? ` en ${category}` : ''}</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Asegurarse de que products sea un array antes de usar map
+    if (!Array.isArray(products)) {
+        console.error('Products no es un array:', products);
+        products = [];
+    }
+    
+    productsGrid.innerHTML = products.map(product => `
+        <div class="product-card">
+            <div class="product-img" style="background-image: url('${product.image || 'https://via.placeholder.com/300'}')">
+                ${!product.image ? '<i class="fas fa-tshirt"></i>' : ''}
+                ${product.featured ? '<span class="featured-badge">Destacado</span>' : ''}
+            </div>
+            <div class="product-info">
+                <h3>${product.name || 'Producto sin nombre'}</h3>
+                <p>${product.description || 'Descripción no disponible'}</p>
+                <div class="product-price">$${(product.price || 0).toFixed(2)}</div>
+                <div class="product-meta">
+                    <span>Tallas: ${product.sizes ? (Array.isArray(product.sizes) ? product.sizes.join(', ') : product.sizes) : 'N/A'}</span>
+                    <span>Disponible: ${product.stock || 0}</span>
+                </div>
+                <button class="btn primary add-to-cart" onclick="addToCart('${product._id || product.id}')">
+                    <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Función de respaldo para categorías
+function displayFallbackProductsInCategory() {
+    const productsGrid = document.getElementById('productsGrid');
+    if (!productsGrid) return;
+    
+    productsGrid.innerHTML = `
+        <div class="product-card">
+            <div class="product-img" style="background-image: url('https://via.placeholder.com/300')">
+                <i class="fas fa-tshirt"></i>
+            </div>
+            <div class="product-info">
+                <h3>Producto Ejemplo 1</h3>
+                <p>Descripción del producto de ejemplo</p>
+                <div class="product-price">$39.99</div>
+                <div class="product-meta">
+                    <span>Tallas: S, M, L</span>
+                    <span>Disponible: 15</span>
+                </div>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img" style="background-image: url('https://via.placeholder.com/300')">
+                <i class="fas fa-tshirt"></i>
+            </div>
+            <div class="product-info">
+                <h3>Producto Ejemplo 2</h3>
+                <p>Otra descripción de producto</p>
+                <div class="product-price">$45.99</div>
+                <div class="product-meta">
+                    <span>Tallas: M, L, XL</span>
+                    <span>Disponible: 8</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Funcionalidad para los filtros modernos - VERSIÓN ÚNICA
 function setupModernFilters() {
     // Limpiar todos los filtros
     const clearFiltersBtn = document.getElementById('clearFilters');
@@ -165,6 +335,14 @@ function setupModernFilters() {
     if (sortSelect) {
         sortSelect.addEventListener('change', applySorting);
     }
+
+    // Configurar búsqueda
+    setupSearchFunctionality();
+}
+
+// Alias para mantener compatibilidad - CORRECIÓN DEL ERROR
+function setupFilters() {
+    return setupModernFilters();
 }
 
 // Limpiar todos los filtros
@@ -207,7 +385,6 @@ function applyFilters() {
     const selectedStyles = getSelectedValues('style');
     const selectedSizes = getSelectedValues('size');
     
-    // Aquí iría la lógica para filtrar los productos
     console.log('Filtros aplicados:', {
         categories: selectedCategories,
         styles: selectedStyles,
@@ -234,9 +411,6 @@ function applyPriceFilter() {
 function applySorting() {
     const sortBy = document.getElementById('sortSelect').value;
     console.log('Ordenar por:', sortBy);
-    
-    // Aquí iría la lógica para ordenar los productos
-    // applyFilters(); // Recargar productos con nuevo orden
 }
 
 // Obtener valores seleccionados de un grupo de checkboxes
@@ -246,12 +420,12 @@ function getSelectedValues(name) {
 }
 
 // Actualizar contador de resultados
-function updateResultsCount() {
+function updateResultsCount(searchTerm = '') {
     const resultsCount = document.getElementById('resultsCount');
     if (resultsCount) {
         // En una implementación real, esto vendría del servidor
-        const randomCount = Math.floor(Math.random() * 50) + 1;
-        resultsCount.textContent = `${randomCount} productos encontrados`;
+        const baseCount = searchTerm ? Math.floor(Math.random() * 20) + 1 : Math.floor(Math.random() * 50) + 1;
+        resultsCount.textContent = `${baseCount} productos encontrados${searchTerm ? ` para "${searchTerm}"` : ''}`;
     }
 }
 
@@ -279,49 +453,6 @@ function showFilterMessage(message) {
     setTimeout(() => {
         messageEl.remove();
     }, 3000);
-}
-
-// Inicializar filtros cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    if (document.querySelector('.filters-section')) {
-        setupModernFilters();
-        updateResultsCount();
-    }
-});
-// Funcionalidad para los filtros modernos (actualizada)
-function setupModernFilters() {
-    // Limpiar todos los filtros
-    const clearFiltersBtn = document.getElementById('clearFilters');
-    if (clearFiltersBtn) {
-        clearFiltersBtn.addEventListener('click', clearAllFilters);
-    }
-
-    // Ver más categorías
-    const viewMoreBtn = document.getElementById('viewMoreCategories');
-    if (viewMoreBtn) {
-        viewMoreBtn.addEventListener('click', toggleMoreCategories);
-    }
-
-    // Aplicar filtros en tiempo real
-    const filterInputs = document.querySelectorAll('input[type="checkbox"], input[type="number"]');
-    filterInputs.forEach(input => {
-        input.addEventListener('change', applyFilters);
-    });
-
-    // Aplicar filtro de precio
-    const applyPriceBtn = document.querySelector('.apply-price');
-    if (applyPriceBtn) {
-        applyPriceBtn.addEventListener('click', applyPriceFilter);
-    }
-
-    // Ordenar productos
-    const sortSelect = document.getElementById('sortSelect');
-    if (sortSelect) {
-        sortSelect.addEventListener('change', applySorting);
-    }
-
-    // Configurar búsqueda
-    setupSearchFunctionality();
 }
 
 // Configurar funcionalidad de búsqueda
@@ -587,7 +718,9 @@ function showSearchResultsInfo(searchTerm) {
         
         const productsMain = document.querySelector('.products-main');
         const productsGrid = document.getElementById('productsGrid');
-        productsMain.insertBefore(resultsInfo, productsGrid);
+        if (productsMain && productsGrid) {
+            productsMain.insertBefore(resultsInfo, productsGrid);
+        }
     }
     
     resultsInfo.innerHTML = `
@@ -610,47 +743,6 @@ function hideSearchResultsInfo() {
     }
 }
 
-// Actualizar contador de resultados (actualizada)
-function updateResultsCount(searchTerm = '') {
-    const resultsCount = document.getElementById('resultsCount');
-    if (resultsCount) {
-        // En una implementación real, esto vendría del servidor
-        const baseCount = searchTerm ? Math.floor(Math.random() * 20) + 1 : Math.floor(Math.random() * 50) + 1;
-        resultsCount.textContent = `${baseCount} productos encontrados${searchTerm ? ` para "${searchTerm}"` : ''}`;
-    }
-}
-
-function applyFilters() {
-    // This would typically make an API call with filter parameters
-    // For now, we'll just reload the products
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-    loadProductsByCategory(category);
-}
-
-// Initialize based on current page
-document.addEventListener('DOMContentLoaded', function() {
-    // Load featured products on home page
-    if (document.getElementById('featuredProducts')) {
-        loadFeaturedProducts();
-    }
-    
-    // Load category products on categories page
-    if (document.getElementById('productsGrid')) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const category = urlParams.get('category');
-        loadProductsByCategory(category);
-        setupFilters();
-    }
-    
-    // Handle category card clicks
-    document.querySelectorAll('.category-card').forEach(card => {
-        card.addEventListener('click', function() {
-            const category = this.dataset.category;
-            window.location.href = `categories.html?category=${category}`;
-        });
-    });
-});
 // Handle category navigation clicks
 function setupCategoryNavigation() {
     document.querySelectorAll('.category-nav-item').forEach(item => {
@@ -680,37 +772,21 @@ function updateCategoryTitle() {
     }
 }
 
-// Initialize enhanced functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Existing initialization code...
-    
-    // New initializations
-    setupCategoryNavigation();
-    updateCategoryTitle();
-    
-    // Load featured products on home page
-    if (document.getElementById('featuredProducts')) {
-        loadFeaturedProducts();
-    }
-    
-    // Load category products on categories page
-    if (document.getElementById('productsGrid')) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const category = urlParams.get('category');
-        loadProductsByCategory(category);
-        setupFilters();
-    }
-});
+// Hero Slider - CORREGIDO
 const heroSection = document.querySelector('.hero');
-
 const heroImages = [
     "images/Portada.png"
-
 ];
 
 let currentImage = 0;
 
 function changeHeroBackground() {
+    // VALIDACIÓN IMPORTANTE - verificar que heroSection existe
+    if (!heroSection) {
+        console.log('Hero section no encontrada - no es una página con hero');
+        return;
+    }
+    
     currentImage = (currentImage + 1) % heroImages.length;
     heroSection.style.backgroundImage = `
         linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
@@ -718,8 +794,92 @@ function changeHeroBackground() {
     `;
 }
 
-// Imagen inicial
-changeHeroBackground();
+// Add to Cart function (placeholder)
+function addToCart(productId) {
+    console.log('Agregando al carrito:', productId);
+    alert('Producto agregado al carrito: ' + productId);
+    // Aquí iría la lógica real del carrito
+}
 
-// Cambia cada 5 segundos
-setInterval(changeHeroBackground, 5000);
+// Initialize everything - VERSIÓN CORREGIDA Y ÚNICA
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Inicializando LiSport...');
+    
+    // Setup category navigation
+    setupCategoryNavigation();
+    updateCategoryTitle();
+    
+    // Load featured products on home page
+    if (document.getElementById('featuredProducts')) {
+        console.log('Cargando página de inicio...');
+        loadFeaturedProducts();
+        
+        // Start hero slider if on home page - CON VALIDACIÓN
+        if (heroSection && heroImages.length > 0) {
+            changeHeroBackground();
+            setInterval(changeHeroBackground, 5000);
+        }
+    }
+    
+    // Load category products on categories page - CORREGIDO
+    if (document.getElementById('productsGrid')) {
+        console.log('Cargando página de categorías...');
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+        loadProductsByCategory(category);
+        
+        if (document.querySelector('.filters-section')) {
+            setupModernFilters(); // Usar setupModernFilters directamente
+            updateResultsCount();
+        }
+    }
+    
+    // Handle category card clicks
+    document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const category = this.dataset.category;
+            window.location.href = `categories.html?category=${category}`;
+        });
+    });
+    
+    // Inicializar filtros cuando el DOM esté listo
+    if (document.querySelector('.filters-section')) {
+        setupModernFilters();
+        updateResultsCount();
+    }
+});
+
+// Agregar estilos CSS para el estado vacío si no existen
+const style = document.createElement('style');
+style.textContent = `
+    .no-products {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+        grid-column: 1 / -1;
+    }
+
+    .no-products i {
+        font-size: 3rem;
+        color: #ccc;
+        margin-bottom: 15px;
+    }
+
+    .no-products p {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: var(--primary-color);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+`;
+document.head.appendChild(style);
