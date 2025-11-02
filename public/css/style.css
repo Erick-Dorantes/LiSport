@@ -1562,3 +1562,32 @@ footer {
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
+.no-products {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    grid-column: 1 / -1;
+}
+
+.no-products i {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.no-products p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.featured-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
