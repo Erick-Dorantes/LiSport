@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin - LiSport</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class' // Esto le dice a Tailwind que busque la clase .dark en el HTML
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="images/site.webmanifest">
+    <link rel="stylesheet" href="Style/Style.css">
+</head>
+
+<body class="min-h-screen transition-colors duration-200">
+    <header class="header-gradient text-white sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between header-compact">
+            <div class="logo">
+                <a href="Inicio.html">
+                    <img src="images/logo.png" alt="LiSport - Ropa Deportiva para Mujer" class="logo-image">
+                </a>
+            </div>
+
+            <nav class="hidden md:flex" aria-label="Menú principal">
+                <ul class="flex space-x-6">
+                    <li><a href="Inicio.html" class="hover:text-pink-200 transition py-2 relative">Inicio</a></li>
+                    <li><a href="catalogo.html" class="hover:text-pink-200 transition py-2 relative">Catálogo</a></li>
+                    <li><a href="admin.html"
+                            class="hover:text-pink-200 transition py-2 relative font-bold border-b-2 border-white">Admin</a>
+                    </li>
+                    <li><a href="contacto.html" class="hover:text-pink-200 transition py-2 relative">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button id="darkToggle" title="Cambiar modo"
+                    class="p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors">
+                    <span id="darkIcon">🌙</span>
+                </button>
+                <button class="md:hidden p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                    id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white text-gray-800 shadow-lg p-6 z-50"
+            id="mobileMenu">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="font-bold text-lg text-high-contrast">MENÚ</h3>
+                <button class="p-2 rounded-full hover:bg-gray-100 transition" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav aria-label="Navegación móvil">
+                <ul class="space-y-4">
+                    <li><a href="Inicio.html"
+                            class="block py-2 font-medium hover:text-pink-500 transition border-b border-gray-200 text-high-contrast">INICIO</a>
+                    </li>
+                    <li><a href="catalogo.html"
+                            class="block py-2 font-medium hover:text-pink-500 transition border-b border-gray-200 text-high-contrast">CATÁLOGO</a>
+                    </li>
+                    <li><a href="admin.html"
+                            class="block py-2 font-bold text-pink-500 transition border-b border-gray-200">ADMIN</a>
+                    </li>
+                    <li><a href="contacto.html"
+                            class="block py-2 font-medium hover:text-pink-500 transition border-b border-gray-200 text-high-contrast">CONTACTO</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="mobile-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden" id="mobileOverlay"></div>
+    </header>
+
+    <div class="max-w-4xl mx-auto p-6">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-high-contrast mb-2">
+                <i class="fas fa-cog text-pink-500 mr-2"></i>
+                Panel de Administración - LiSport
+            </h1>
+            <p class="text-medium-contrast">Gestiona los productos de tu catálogo</p>
+        </div>
+
+        <div id="loginBox" class="login-container">
+            <div class="login-box-border-rgb">
+                <div class="login-box">
+                    <div class="text-center mb-6">
+                        <div
+                            class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 mb-4">
+                            <i class="fas fa-lock text-white text-2xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-high-contrast">🔐 Acceso Administrativo</h2>
+                        <p class="text-medium-contrast mt-2">Ingresa la contraseña para acceder al panel</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label for="admin-password" class="form-label block text-sm font-medium mb-2">
+                                Contraseña
+                            </label>
+                            <input id="admin-password" type="password" placeholder="••••••••"
+                                class="password-input w-full p-3" />
+                        </div>
+                        <button onclick="verificarPassword()"
+                            class="login-btn w-full text-white p-3 rounded-xl font-semibold">
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                            Entrar al Panel
+                        </button>
+                        <p id="error-msg" class="error-message">Contraseña incorrecta. Intenta nuevamente.</p>
+
+                        <div class="login-info">
+                            <small>Esta es un área restringida para administradores autorizados.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="adminPanel" class="admin-panel" style="display: none;">
+            <div class="glass-card rounded-2xl p-4 mb-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div
+                            class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mr-3">
+                            <i class="fas fa-user-shield text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-blue-700 dark:text-blue-300">Sesión activa</p>
+                            <p class="text-sm text-blue-600 dark:text-blue-400">Administrador conectado</p>
+                        </div>
+                    </div>
+                    <button onclick="cerrarSesion()"
+                        class="bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:shadow-lg transition-all">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl shadow-lg mb-6">
+                <div class="flex items-center mb-4">
+                    <div
+                        class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center mr-3">
+                        <i class="fas fa-plus-circle text-white"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-high-contrast">Agregar / Editar Producto</h2>
+                </div>
+
+                <div class="mb-4">
+                    <label for="prod-id" class="form-label block text-sm font-medium mb-1">
+                        ID del Producto (Automático)
+                    </label>
+                    <input id="prod-id" readonly
+                        class="modern-input w-full p-3 bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
+                        placeholder="Se generará automáticamente al guardar" />
+                    <p class="text-xs text-medium-contrast mt-1">El ID se genera automáticamente y no puede ser
+                        modificado</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="categoria" class="form-label block text-sm font-medium mb-1">
+                            Categoría *
+                        </label>
+                        <select id="categoria"
+                            class="modern-input w-full p-3 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                            required>
+                            <option value="">Seleccionar categoría</option>
+                            <option value="leggins">Leggings</option>
+                            <option value="tops">Tops</option>
+                            <option value="calcetas">Calcetas</option>
+                            <option value="sweaters">Sudaderas</option>
+                            <option value="conjuntos">Conjuntos</option>
+                            <option value="enterizos">Enterizos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="nombre" class="form-label block text-sm font-medium mb-1">
+                            Nombre del Producto *
+                        </label>
+                        <input id="nombre" placeholder="Ej: Legging Deportivo Alto Rendimiento"
+                            class="modern-input w-full p-3 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                            required />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="descripcion" class="form-label block text-sm font-medium mb-1">
+                        Descripción
+                    </label>
+                    <textarea id="descripcion" placeholder="Describe las características y beneficios del producto..."
+                        rows="3"
+                        class="modern-input w-full p-3 focus:ring-2 focus:ring-pink-500 focus:border-transparent"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="precio" class="form-label block text-sm font-medium mb-1">
+                            Precio (MXN) *
+                        </label>
+                        <input id="precio" type="number" step="0.01" min="0" placeholder="Ej: 299.00"
+                            class="modern-input w-full p-3 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                            required />
+                    </div>
+                    <div>
+                        <label for="cantidad" class="form-label block text-sm font-medium mb-1">
+                            Cantidad en Stock *
+                        </label>
+                        <input id="cantidad" type="number" min="0" placeholder="Ej: 10"
+                            class="modern-input w-full p-3 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                            required />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label block text-sm font-medium mb-2">
+                        Tallas Disponibles *
+                    </label>
+                    <p class="text-xs text-medium-contrast mb-2">Selecciona las tallas que tienes en stock para este
+                        producto</p>
+                    <div class="sizes-container">
+                        <input type="checkbox" id="size-xs" class="size-checkbox" name="tallas" value="XS">
+                        <label for="size-xs" class="size-label">XS</label>
+
+                        <input type="checkbox" id="size-s" class="size-checkbox" name="tallas" value="S">
+                        <label for="size-s" class="size-label">S</label>
+
+                        <input type="checkbox" id="size-m" class="size-checkbox" name="tallas" value="M">
+                        <label for="size-m" class="size-label">M</label>
+
+                        <input type="checkbox" id="size-l" class="size-checkbox" name="tallas" value="L">
+                        <label for="size-l" class="size-label">L</label>
+
+                        <input type="checkbox" id="size-xl" class="size-checkbox" name="tallas" value="XL">
+                        <label for="size-xl" class="size-label">XL</label>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label block text-sm font-medium mb-2">
+                        Colores Disponibles
+                    </label>
+                    <p class="text-xs text-medium-contrast mb-2">Selecciona los colores disponibles para este producto</p>
+                    
+                    <div id="colores-container" class="sizes-container">
+                        </div>
+                </div>
+                <div class="mb-6">
+                    <input type="checkbox" id="destacado" class="featured-checkbox" name="destacado">
+                    <label for="destacado" class="featured-label">
+                        <span class="featured-checkmark"></span>
+                        <div>
+                            <span class="font-semibold text-high-contrast">Producto Destacado</span>
+                            <p class="text-xs text-medium-contrast mt-1">Aparecerá en la sección de productos destacados
+                                de la página de inicio</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="mb-6">
+                    <label class="form-label block text-sm font-medium mb-2">
+                        Imágenes del Producto (Múltiples)
+                    </label>
+
+                    <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-6 text-center mb-4 cursor-pointer hover:border-pink-400 transition-colors"
+                        id="upload-area">
+                        <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-3"></i>
+                        <p class="text-medium-contrast mb-2">Arrastra y suelta imágenes aquí</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">o haz clic para seleccionar</p>
+                        <button type="button"
+                            class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all">
+                            <i class="fas fa-images mr-2"></i>
+                            Seleccionar Imágenes
+                        </button>
+                        <input type="file" id="imagenes-file" multiple accept="image/*" class="hidden">
+                    </div>
+
+                    <div id="upload-progress" class="hidden mb-4">
+                        <div class="flex justify-between text-sm text-medium-contrast mb-2">
+                            <span>Subiendo imágenes...</span>
+                            <span id="upload-count">0</span>/<span id="total-count">0</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div id="progress-bar"
+                                class="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full transition-all duration-300"
+                                style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div id="images-preview" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-4"></div>
+
+                    <input type="hidden" id="imagenes-urls" name="imagenes-urls">
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button id="create-btn" class="btn-gradient flex-1 text-white p-3 rounded-xl font-semibold">
+                        <i class="fas fa-save mr-2"></i>
+                        Guardar Producto
+                    </button>
+                    <button id="clear-btn"
+                        class="bg-gradient-to-r from-gray-500 to-gray-600 text-white p-3 rounded-xl font-semibold hover:shadow-lg transition-all flex-1">
+                        <i class="fas fa-broom mr-2"></i>
+                        Limpiar Formulario
+                    </button>
+                </div>
+
+                <p id="status" class="mt-4 text-sm text-center p-3 rounded-lg"></p>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl shadow-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center mr-3">
+                            <i class="fas fa-boxes text-white"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold text-high-contrast">Productos Actuales</h2>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="refresh-btn"
+                            class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:shadow-lg transition-all">
+                            <i class="fas fa-sync-alt mr-1"></i>
+                            Actualizar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="admin-filter-bar">
+                    <input type="text" id="search-products-admin" placeholder="Buscar por nombre o ID..."
+                        class="modern-input w-full p-3 modern-select" />
+
+                    <select id="filter-category-admin" class="modern-input w-full p-3 modern-select">
+                        <option value="">Todas las Categorías</option>
+                        <option value="leggins">Leggings</option>
+                        <option value="tops">Tops</option>
+                        <option value="calcetas">Calcetas</option>
+                        <option value="sweaters">Sudaderas</option>
+                        <option value="conjuntos">Conjuntos</option>
+                        <option value="enterizos">Enterizos</option>
+                    </select>
+
+                    <select id="filter-featured-admin" class="modern-input w-full p-3 modern-select">
+                        <option value="">Todos</option>
+                        <option value="true">Solo Destacados</option>
+                        <option value="false">No Destacados</option>
+                    </select>
+                </div>
+                <div id="list" class="space-y-4">
+                    <div class="text-center py-8 text-medium-contrast" id="loading-products">
+                        <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                        <p>Cargando productos...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-gray-50 dark:bg-gray-800 pt-10 pb-6">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">LiSport</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Porque entrenar también es una forma de brillar.
+                        Descubre ropa deportiva pensada para mujeres seguras, activas y llenas de poder.</p>
+                    <div class="social-links flex space-x-4">
+                        <a href="#"
+                            class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white dark:hover:bg-pink-500 dark:hover:text-white transition focus:outline-none focus:ring-2 focus:ring-pink-500"
+                            aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/li_sport_25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                            class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white dark:hover:bg-pink-500 dark:hover:text-white transition focus:outline-none focus:ring-2 focus:ring-pink-500"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Enlaces Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Inicio.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Inicio</a>
+                        </li>
+                        <li><a href="catalogo.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Comprar</a>
+                        </li>
+                        <li><a href="sobre-nosotros.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Nuestra
+                                Historia</a></li>
+                        <li><a href="contacto.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Contáctanos</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Tu Compra Segura</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-gray-600 dark:text-gray-300">
+                            <i class="fas fa-undo-alt mt-1 mr-2 text-pink-400"></i>
+                            <p>30 días para Cambios y Devoluciones.</p>
+                        </li>
+                        <li class="flex items-start text-gray-600 dark:text-gray-300">
+                            <i class="fas fa-truck mt-1 mr-2 text-pink-400"></i>
+                            <p>Envíos a todo México.</p>
+                        </li>
+                        <li class="flex items-start text-gray-600 dark:text-gray-300">
+                            <i class="fas fa-lock mt-1 mr-2 text-pink-400"></i>
+                            <p>Pago 100% seguro.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Encuéntranos</h3>
+
+                    <div class="map-container mb-4 rounded-md overflow-hidden shadow-lg">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2729.2544410240494!2d-99.50254862667765!3d17.549706698112438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cbedc493332ecf%3A0x88d3c2fff71d32c7!2sbe%20you%20for%20you!5e1!3m2!1ses-419!2smx!4v1762577542925!5m2!1ses-419!2smx"
+                            width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Ubicación de la tienda LiSport en Chilpancingo"></iframe>
+                    </div>
+
+                    <ul class="space-y-1">
+                        <li class="flex items-center text-gray-600 dark:text-gray-300 text-sm">
+                            <i class="fas fa-map-marker-alt mr-2 text-pink-400"></i>
+                            Chilpancingo de los Bravo, Guerrero
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div
+            class="copyright border-t border-gray-200 dark:border-gray-700 pt-6 text-center text-gray-500 dark:text-gray-400">
+            <p>© 2025 LiSport. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

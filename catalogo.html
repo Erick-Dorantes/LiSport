@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar - LiSport</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class' // Esto le dice a Tailwind que busque la clase .dark en el HTML
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="images/site.webmanifest">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="Style/Style.css">
+</head>
+
+<body class="font-sans bg-white text-gray-800 transition-colors duration-200">
+    <header class="bg-pink-500 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between py-3 px-4">
+            <div class="logo">
+                <a href="Inicio.html">
+                    <img src="images/logo.png" alt="LiSport - Ropa Deportiva para Mujer" class="h-10">
+                </a>
+            </div>
+
+            <nav class="hidden md:flex" aria-label="Menú principal">
+                <ul class="flex space-x-6">
+                    <li><a href="Inicio.html" class="hover:text-pink-200 transition py-2 relative">Inicio</a></li>
+                    <li><a href="catalogo.html"
+                            class="hover:text-pink-200 transition py-2 relative font-bold">Comprar</a></li>
+                    <li><a href="sobre-nosotros.html" class="hover:text-pink-200 transition py-2 relative">Nuestra
+                            Historia</a>
+                    </li>
+                    <li><a href="contacto.html" class="hover:text-pink-200 transition py-2 relative">Contáctanos</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button id="darkToggle" title="Cambiar modo"
+                    class="p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors">
+                    <span id="darkIcon">🌙</span>
+                </button>
+
+                <button id="mobileMenuButton" class="p-2 md:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="mobile-menu-dropdown">
+            <ul class="flex flex-col text-center divide-y divide-pink-400">
+                <li><a href="Inicio.html" class="block py-3 hover:bg-pink-400 transition">Inicio</a></li>
+                <li><a href="catalogo.html"
+                        class="block py-3 hover:bg-pink-400 transition font-bold bg-pink-400">Comprar</a></li>
+                <li><a href="sobre-nosotros.html" class="block py-3 hover:bg-pink-400 transition">Nuestra Historia</a>
+                </li>
+                <li><a href="contacto.html" class="block py-3 hover:bg-pink-400 transition">Contáctanos</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-4">
+        <div class="mb-8 text-center">
+            <h1 class="text-4xl font-bold mb-2">Recomendados</h1>
+        </div>
+
+        <section class="recommended-section">
+            <div class="catalog-layout">
+                <aside class="filters-sidebar" id="filtersSidebar">
+                    <div
+                        class="filters-header flex justify-between items-center mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-bold">FILTROS</h3>
+                        <div class="flex gap-2">
+                            <button class="clear-filters text-sm text-pink-500 hover:text-pink-600 font-medium"
+                                id="clearFilters">
+                                Limpiar todo
+                            </button>
+                            <button
+                                class="close-filters text-sm text-gray-500 hover:text-gray-700 font-medium md:hidden"
+                                id="closeFilters">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group mb-6" style="position: relative;">
+                        <div class="filter-title mb-4">
+                            <h4 class="font-semibold">BUSCAR</h4>
+                        </div>
+                        <div class="search-box relative">
+                            <i class="fas fa-search search-icon text-gray-400"></i>
+                            <input type="text" id="searchInput" placeholder="Buscar productos..." class="search-input"
+                                autocomplete="off">
+                        </div>
+                        <div id="autocomplete-results" class="hidden">
+                        </div>
+                    </div>
+
+                    <div class="filter-group mb-6">
+                        <div class="filter-title flex justify-between items-center mb-4">
+                            <h4 class="font-semibold">CATEGORÍA</h4>
+                        </div>
+                        <div class="filter-options space-y-2">
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="leggins" class="hidden">
+                                <span class="checkmark"></span>
+                                <span class="filter-text">Leggings</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="tops" class="hidden">
+                                <span class="checkmark"></span>
+                                <span class="filter-text">Tops</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="calcetas" class="hidden">
+                                <span class="checkmark"></span>
+                                <span class="filter-text">Calcetas</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="sweaters" class="hidden">
+                                <span class="checkmark"></span>
+                                <span class="filter-text">Sudaderas</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="conjuntos" class="hidden">
+                                <span class="checkmark"></span>
+                                <span class="filter-text">Conjuntos</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="enterizos" class="hidden">
+                                <span class="checkmark"></span>
+                                <span class="filter-text">Enterizos</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-title mb-4">
+                            <h4 class="font-semibold">TALLA</h4>
+                        </div>
+                        <div class="size-filters">
+                            <label class="size-option">
+                                <input type="checkbox" name="size" value="XS" class="hidden">
+                                <span class="size-tag">XS</span>
+                            </label>
+                            <label class="size-option">
+                                <input type="checkbox" name="size" value="S" class="hidden">
+                                <span class="size-tag">S</span>
+                            </label>
+                            <label class="size-option">
+                                <input type="checkbox" name="size" value="M" class="hidden">
+                                <span class="size-tag">M</span>
+                            </label>
+                            <label class="size-option">
+                                <input type="checkbox" name="size" value="L" class="hidden">
+                                <span class="size-tag">L</span>
+                            </label>
+                            <label class="size-option">
+                                <input type="checkbox" name="size" value="XL" class="hidden">
+                                <span class="size-tag">XL</span>
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+
+                <main class="products-main">
+                    <div
+                        class="products-header text-gray-800 dark:text-white p-4 rounded-lg shadow-sm mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div class="results-info">
+                            <span id="resultsCount" class="font-medium text-gray-800 dark:text-gray-300">Cargando
+                                productos...</span>
+                        </div>
+                        <div class="sort-options flex items-center gap-2">
+                            <label for="sortSelect" class="text-sm text-gray-600 dark:text-gray-400">Ordenar
+                                por:</label>
+                            <select id="sortSelect" class="sort-select">
+                                <option value="recommended">Recomendados</option>
+                                <option value="price_asc">Precio: Menor a Mayor</option>
+                                <option value="price_desc">Precio: Mayor a Menor</option>
+                                <option value="name">Nombre A-Z</option>
+                                <option value="newest">Más Nuevos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="productsGrid">
+                        <div class="col-span-full text-center py-12" id="loading-products">
+                            <i class="fas fa-spinner fa-spin text-pink-500 text-3xl mb-4"></i>
+                            <p class="text-gray-600 dark:text-gray-400">Cargando productos...</p>
+                        </div>
+                    </div>
+
+                    <div id="noResults" class="hidden text-center py-12">
+                        <i class="fas fa-search text-5xl text-gray-300 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">No se encontraron productos</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Intenta con otros términos de búsqueda o filtros</p>
+                        <button id="resetFilters"
+                            class="mt-4 bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition">
+                            Restablecer filtros
+                        </button>
+                    </div>
+                </main>
+            </div>
+        </section>
+    </main>
+
+    <button class="floating-filters-button lg:hidden" id="floatingFiltersButton">
+        <i class="fas fa-sliders-h"></i>
+        <span>Filtros</span>
+    </button>
+
+    <div id="imageModal" class="image-modal">
+        <div class="modal-carousel">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="carousel-container-modal">
+                <div id="modalCarouselSlides" class="carousel-slides-container">
+                </div>
+
+                <button class="carousel-nav-modal carousel-prev-modal" id="modalPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-nav-modal carousel-next-modal" id="modalNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <div class="carousel-indicators-modal" id="modalIndicators">
+                </div>
+            </div>
+        </div>
+
+        <button class="modal-details-button" id="modalDetailsButton" aria-label="Ver detalles del producto">
+            <i class="fas fa-info"></i>
+        </button>
+
+        <div id="productInfoDialog">
+            <h4 class="dialog-title" id="dialogTitle"></h4>
+            <div class="product-info-price" id="dialogPrice"></div>
+
+            <div class="flex items-center gap-2 text-sm mb-2">
+                <span class="font-medium text-gray-700 dark:text-gray-300">Colores:</span>
+                <div class="flex flex-wrap gap-2" id="dialogColors"></div>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-3" id="dialogDescription"></p>
+
+            <div class="flex items-center gap-2 text-sm">
+                <span class="font-medium text-gray-700 dark:text-gray-300">Tallas:</span>
+                <div class="flex flex-wrap gap-1" id="dialogSizes"></div>
+            </div>
+
+            <a id="btnWhatsappMobile" href="#" target="_blank" class="btn-whatsapp mt-4 w-full justify-center">
+                <i class="fab fa-whatsapp text-xl"></i>
+                <span>Lo quiero</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="product-info-panel" id="productInfoPanel">
+        <div class="product-info-category" id="productInfoCategory">Categoría</div>
+        <div class="product-info-header">
+            <h2 class="product-info-title" id="productInfoTitle">Nombre del Producto</h2>
+            <button class="product-info-close" id="productInfoClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="product-info-price" id="productInfoPrice">$0.00</div>
+        
+              
+        <div class="product-info-stock in-stock" id="productInfoStock">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span id="stockText">0 disponibles</span>
+        </div>
+        
+        <div class="product-info-description" id="productInfoDescription">
+            Descripción del producto aparecerá aquí...
+        </div>
+        
+        <div class="product-info-colors">
+            <h3 class="colors-title">Colores Disponibles</h3>
+            <div class="colors-container-modal" id="productInfoColors"></div>
+        </div>
+
+
+
+
+
+        <div class="product-info-sizes">
+            <h3 class="sizes-title">Tallas Disponibles</h3>
+            <div class="sizes-container-modal" id="productInfoSizes"></div>
+        </div>
+
+        <a id="btnWhatsappDesktop" href="#" target="_blank" class="btn-whatsapp mt-6">
+            <i class="fab fa-whatsapp text-xl"></i>
+            <span>Pedir por WhatsApp</span>
+        </a>
+    </div>
+    <footer class="bg-gray-50 dark:bg-gray-800 pt-10 pb-6">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">LiSport</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Porque entrenar también es una forma de
+                        brillar.
+                        Descubre ropa deportiva pensada para mujeres seguras, activas y llenas de poder.</p>
+                    <div class="social-links flex space-x-4">
+                        <a href="#"
+                            class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white dark:hover:bg-pink-500 dark:hover:text-white transition focus:outline-none focus:ring-2 focus:ring-pink-500"
+                            aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/li_sport_25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                            class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white dark:hover:bg-pink-500 dark:hover:text-white transition focus:outline-none focus:ring-2 focus:ring-pink-500"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Enlaces Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Inicio.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Inicio</a>
+                        </li>
+                        <li><a href="catalogo.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Comprar</a>
+                        </li>
+                        <li><a href="sobre-nosotros.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Nuestra
+                                Historia</a></li>
+                        <li><a href="contacto.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Contáctanos</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Tu Compra Segura</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-gray-600 dark:text-gray-300">
+                            <i class="fas fa-undo-alt mt-1 mr-2 text-pink-400"></i>
+                            <p>30 días para Cambios y Devoluciones.</p>
+                        </li>
+                        <li class="flex items-start text-gray-600 dark:text-gray-300">
+                            <i class="fas fa-truck mt-1 mr-2 text-pink-400"></i>
+                            <p>Envíos a todo México.</p>
+                        </li>
+                        <li class="flex items-start text-gray-600 dark:text-gray-300">
+                            <i class="fas fa-lock mt-1 mr-2 text-pink-400"></i>
+                            <p>Pago 100% seguro.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Encuéntranos</h3>
+
+                    <div class="map-container mb-4 rounded-md overflow-hidden shadow-lg">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2729.2544410240494!2d-99.50254862667765!3d17.549706698112438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cbedc493332ecf%3A0x88d3c2fff71d32c7!2sbe%20you%20for%20you!5e1!3m2!1ses-419!2smx!4v1762577542925!5m2!1ses-419!2smx"
+                            width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Ubicación de la tienda LiSport en Chilpancingo"></iframe>
+                    </div>
+
+                    <ul class="space-y-1">
+                        <li class="flex items-center text-gray-600 dark:text-gray-300 text-sm">
+                            <i class="fas fa-map-marker-alt mr-2 text-pink-400"></i>
+                            Chilpancingo de los Bravo, Guerrero
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div
+            class="copyright border-t border-gray-200 dark:border-gray-700 pt-6 text-center text-gray-500 dark:text-gray-400">
+            <p>© 2025 LiSport. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Tu archivo JavaScript personalizado -->
+    <script src="js/catalogo.js" charset="UTF-8"></script>
+
+</body>
+
+</html>

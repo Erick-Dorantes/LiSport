@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Productos - LiSport</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- Reseteo Básico y Estilos Globales --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f2f5; /* Fondo más claro para el admin */
+            color: #333;
+        }
+
+        /* --- Layout del Admin Panel --- */
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- Sidebar (Barra Lateral) --- */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50; /* Un azul oscuro */
+            color: #ecf0f1;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            display: block;
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: #ecf0f1;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar-nav a i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: #34495e; /* Un tono más claro al pasar el ratón */
+            color: #ffffff;
+        }
+        
+        /* --- Main Content (Contenido Principal) --- */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            background-color: #ffffff; /* Fondo blanco para el área de contenido */
+        }
+
+        .main-content h1 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        /* --- Barra de Acciones (Botones y Búsqueda) --- */
+        .actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px; /* Espacio entre elementos */
+        }
+
+        .add-button {
+            background-color: #28a745; /* Verde para "Añadir" */
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none; /* Si es un <a> */
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .add-button i {
+            margin-right: 8px;
+        }
+
+        .add-button:hover {
+            background-color: #218838;
+        }
+
+        .search-bar {
+            flex-grow: 1; /* Permite que la barra de búsqueda ocupe el espacio restante */
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        /* --- Tabla de Productos --- */
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden; /* Asegura que los bordes redondeados se vean bien */
+        }
+
+        .product-table th,
+        .product-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-table th {
+            background-color: #f8f8f8;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .product-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .product-thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        .product-status {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-dot.active {
+            background-color: #28a745; /* Verde */
+        }
+
+        .status-dot.draft {
+            background-color: #ffc107; /* Amarillo */
+        }
+
+        .table-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-right: 10px;
+            color: #555;
+            transition: color 0.2s;
+        }
+
+        .table-actions button:hover {
+            color: #2c3e50;
+        }
+
+        .table-actions button.delete-btn:hover {
+            color: #dc3545; /* Rojo para eliminar */
+        }
+        
+        /* --- Responsivo --- */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 200px; /* Sidebar un poco más estrecho */
+            }
+            .sidebar .logo {
+                font-size: 1.3rem;
+            }
+            .main-content h1 {
+                font-size: 1.8rem;
+            }
+            .product-table th,
+            .product-table td {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            /* Ocultar algunas columnas para ahorrar espacio */
+            .product-table th:nth-child(4),
+            .product-table td:nth-child(4) { /* Ocultar fecha añadida */
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-wrapper {
+                flex-direction: column; /* Apilar sidebar y contenido */
+            }
+            .sidebar {
+                width: 100%;
+                padding: 15px;
+                text-align: center;
+            }
+            .sidebar .logo {
+                margin-bottom: 15px;
+            }
+            .sidebar-nav ul {
+                display: flex; /* Menú horizontal en móvil */
+                justify-content: center;
+                flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+            }
+            .sidebar-nav li {
+                margin: 0 10px 10px 10px; /* Espaciado horizontal */
+            }
+            .sidebar-nav a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            .sidebar-nav a i {
+                margin-right: 5px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+            .actions-bar {
+                flex-direction: column; /* Apilar botones y búsqueda */
+                align-items: stretch;
+            }
+            .search-bar {
+                margin-top: 15px;
+            }
+            .add-button {
+                width: 100%; /* Botón de añadir ocupa todo el ancho */
+            }
+
+            /* Tabla: hacerla deslizable horizontalmente si no cabe */
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+            }
+            .product-table {
+                min-width: 600px; /* Establece un ancho mínimo para que la tabla sea deslizable */
+            }
+            /* Ocultar más columnas para móvil */
+            .product-table th:nth-child(3),
+            .product-table td:nth-child(3) { /* Ocultar categoría */
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <a href="#" class="logo">LiSport Admin</a>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-box-open"></i> Gestión de Productos</a></li>
+                    <li><a href="#"><i class="fas fa-tags"></i> Gestión de Categorías</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Gestión de Usuarios</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Configuración</a></li>
+                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <h1>Gestión de Productos</h1>
+
+            <div class="actions-bar">
+                <a href="#" class="add-button"><i class="fas fa-plus"></i> Añadir Nuevo Producto</a>
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar productos...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Estado</th>
+                            <th>Fecha Añadido</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="https://images.unsplash.com/photo-1605391932347-a8a04e5d4367?q=80&w=60&auto=format&fit=crop" alt="Legging" class="product-thumbnail">
+                                Legging Adapt Stretch
+                            </td>
+                            <td>Leggings</td>
+                            <td>
+                                <span class="product-status">
+                                    <span class="status-dot active"></span> Activo
+                                </span>
+                            </td>
+                            <td>2023-10-26</td>
+                            <td class="table-actions">
+                                <button title="Editar"><i class="fas fa-edit"></i></button>
+                                <button title="Eliminar" class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                <button title="Ver en Catálogo"><i class="fas fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://images.unsplash.com/photo-1571441864197-00c5c55209c1?q=80&w=60&auto=format&fit=crop" alt="Top Deportivo" class="product-thumbnail">
+                                Top Endurance Pro
+                            </td>
+                            <td>Tops</td>
+                            <td>
+                                <span class="product-status">
+                                    <span class="status-dot draft"></span> Borrador
+                                </span>
+                            </td>
+                            <td>2023-10-25</td>
+                            <td class="table-actions">
+                                <button title="Editar"><i class="fas fa-edit"></i></button>
+                                <button title="Eliminar" class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                <button title="Ver en Catálogo"><i class="fas fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://images.unsplash.com/photo-1621990473204-a117f7d1811a?q=80&w=60&auto=format&fit=crop" alt="Sudadera" class="product-thumbnail">
+                                Sudadera CasualFit
+                            </td>
+                            <td>Sudaderas</td>
+                            <td>
+                                <span class="product-status">
+                                    <span class="status-dot active"></span> Activo
+                                </span>
+                            </td>
+                            <td>2023-10-24</td>
+                            <td class="table-actions">
+                                <button title="Editar"><i class="fas fa-edit"></i></button>
+                                <button title="Eliminar" class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                <button title="Ver en Catálogo"><i class="fas fa-eye"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

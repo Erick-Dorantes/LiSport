@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiSport - Ropa Deportiva para Mujer</title>
+
+    <meta name="description"
+        content="Descubre ropa deportiva para mujer de alta calidad, estilo y comodidad. Leggins, tops, sudaderas y más. LiSport te acompaña en cada movimiento.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class' // Esto le dice a Tailwind que busque la clase .dark en el HTML
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="images/site.webmanifest">
+    <link rel="stylesheet" href="Style/Style.css">
+</head>
+
+<body class="font-sans bg-white text-gray-800 transition-colors duration-200">
+    <div class="announcement-bar bg-black text-white text-xs font-bold py-2.5 px-4 z-50 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto flex justify-between items-center h-full">
+
+            <div class="announcement-content flex-1 text-center relative h-5 overflow-hidden">
+
+                <div
+                    class="announcement-slide active absolute inset-0 flex items-center justify-center transition-opacity duration-500">
+                    <i class="fas fa-shopping-bag mr-2 text-gray-300"></i>
+                    <span>COMPRA Y PAGA EN HASTA 4 MESES SIN INTERESES</span>
+                    <i class="fas fa-shopping-bag ml-2 text-gray-300"></i>
+                </div>
+
+                <div
+                    class="announcement-slide absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500">
+                    <i class="fas fa-truck mr-2 text-gray-300"></i>
+                    <span>ENVÍO GRATIS EN COMPRAS MAYORES A $999</span>
+                </div>
+
+                <div
+                    class="announcement-slide absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500">
+                    <i class="fas fa-undo mr-2 text-gray-300"></i>
+                    <span>30 DÍAS PARA CAMBIOS Y DEVOLUCIONES</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <header class="bg-pink-500 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between header-compact">
+            <div class="logo">
+                <a href="Inicio.html">
+                    <img src="images/logo.png" alt="LiSport - Ropa Deportiva para Mujer" class="logo-image">
+                </a>
+            </div>
+
+            <nav class="hidden md:flex" aria-label="Menú principal">
+                <ul class="flex space-x-6">
+                    <li><a href="Inicio.html" class="hover:text-pink-200 transition py-2 relative">Inicio</a></li>
+                    <li><a href="catalogo.html" class="hover:text-pink-200 transition py-2 relative">Comprar</a></li>
+                    <li><a href="sobre-nosotros.html" class="hover:text-pink-200 transition py-2 relative">Nuestra
+                            Historia</a>
+                    </li>
+                    <li><a href="contacto.html" class="hover:text-pink-200 transition py-2 relative">Contáctanos</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button id="darkToggle" title="Cambiar modo"
+                    class="p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors">
+                    <span id="darkIcon">🌙</span>
+                </button>
+                <button class="md:hidden p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                    id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white text-gray-800 shadow-lg p-6 z-50 dark:bg-gray-800 dark:text-white"
+            id="mobileMenu">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="font-bold text-lg">MENÚ</h3>
+                <button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav aria-label="Navegación móvil">
+                <ul class="space-y-4">
+                    <li><a href="Inicio.html"
+                            class="block py-2 font-medium hover:text-pink-500 transition border-b border-gray-200 dark:border-gray-600">INICIO</a>
+                    </li>
+                    <li><a href="catalogo.html"
+                            class="block py-2 font-medium hover:text-pink-500 transition border-b border-gray-200 dark:border-gray-600">COMPRAR</a>
+                    </li>
+                    <li><a href="sobre-nosotros.html"
+                            class="block py-2 font-medium hover:text-pink-500 transition border-b border-gray-200 dark:border-gray-600">NUESTRA
+                            HISTORIA</a>
+                    </li>
+                    <li><a href="contacto.html"
+                            class="block py-2 font-medium hover:text-pink-500 transition border-b border-gray-200 dark:border-gray-600">CONTÁCTANOS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="mobile-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden" id="mobileOverlay"></div>
+    </header>
+
+    <main>
+        <section class="hero-carousel text-white">
+            <div class="carousel-container">
+                <div class="carousel-slide active" style="background-image: url('./images/Portada.png')"></div>
+                <div class="carousel-slide" style="background-image: url('./images/Tops.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('./images/leggings.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('./images/Conjunto.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('./images/enterizo.jpg')"></div>
+            </div>
+
+            <button class="carousel-nav carousel-prev" aria-label="Imagen anterior">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-nav carousel-next" aria-label="Siguiente imagen">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <div class="carousel-indicators">
+                <button class="carousel-indicator active" data-slide="0" aria-label="Ir a imagen 1"></button>
+                <button class="carousel-indicator" data-slide="1" aria-label="Ir a imagen 2"></button>
+                <button class="carousel-indicator" data-slide="2" aria-label="Ir a imagen 3"></button>
+                <button class="carousel-indicator" data-slide="3" aria-label="Ir a imagen 4"></button>
+                <button class="carousel-indicator" data-slide="3" aria-label="Ir a imagen 5"></button>
+            </div>
+
+            <div
+                class="max-w-6xl mx-auto px-4 text-center fade-in hero-content flex items-center justify-center min-h-[70vh]">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">RENDIMIENTO Y ESTILO EN CADA MOVIMIENTO</h1>
+                    <p class="text-xl mb-8 max-w-2xl mx-auto">Ropa deportiva que te impulsa a sentirte bien, moverte con
+                        libertad y brillar a tu manera.</p>
+                    <a href="catalogo.html"
+                        class="bg-white text-pink-500 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition inline-block focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-pink-500">
+                        Nuestro Catálogo
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-gray-100 dark:bg-gray-900">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-10 text-gray-900 dark:text-white">Explora Nuestras
+                    Categorías</h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+
+                    <a href="catalogo.html?categoria=leggings"
+                        class="category-card relative overflow-hidden rounded-lg shadow-lg group block">
+                        <img src="images\products\leggins_cat.jpg" alt="Leggings LiSport"
+                            class="w-full h-40 sm:h-64 object-cover object-center transform transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-opacity flex items-center justify-center">
+                            <h3 class="text-white text-xl sm:text-2xl font-bold uppercase tracking-wider">Leggings</h3>
+                        </div>
+                    </a>
+
+                    <a href="catalogo.html?categoria=tops"
+                        class="category-card relative overflow-hidden rounded-lg shadow-lg group block">
+                        <img src="images\products\tops_cat.jpg" alt="Tops Deportivos LiSport"
+                            class="w-full h-40 sm:h-64 object-cover object-center transform transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-opacity flex items-center justify-center">
+                            <h3 class="text-white text-xl sm:text-2xl font-bold uppercase tracking-wider">Tops</h3>
+                        </div>
+                    </a>
+
+                    <a href="catalogo.html?categoria=sudaderas"
+                        class="category-card relative overflow-hidden rounded-lg shadow-lg group block">
+                        <img src="images\products\Sudadera_cat.jpg" alt="Sudaderas LiSport"
+                            class="w-full h-40 sm:h-64 object-cover object-center transform transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-opacity flex items-center justify-center">
+                            <h3 class="text-white text-xl sm:text-2xl font-bold uppercase tracking-wider">Sudaderas</h3>
+                        </div>
+                    </a>
+
+                    <a href="catalogo.html?categoria=conjuntos"
+                        class="category-card relative overflow-hidden rounded-lg shadow-lg group block">
+                        <img src="images\products\Conjunto_cat.jpg" alt="Conjuntos Deportivos LiSport"
+                            class="w-full h-40 sm:h-64 object-cover object-center transform transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-opacity flex items-center justify-center">
+                            <h3 class="text-white text-xl sm:text-2xl font-bold uppercase tracking-wider">Conjuntos</h3>
+                        </div>
+                    </a>
+
+                    <a href="catalogo.html?categoria=enterizos"
+                        class="category-card relative overflow-hidden rounded-lg shadow-lg group block">
+                        <img src="images\products\Enterizo_cat.jpeg" alt="Enterizos Deportivos LiSport"
+                            class="w-full h-40 sm:h-64 object-cover object-center transform transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-opacity flex items-center justify-center">
+                            <h3 class="text-white text-xl sm:text-2xl font-bold uppercase tracking-wider">Enterizos</h3>
+                        </div>
+                    </a>
+
+                    <a href="catalogo.html?categoria=calcetas"
+                        class="category-card relative overflow-hidden rounded-lg shadow-lg group block">
+                        <img src="images\products\Calcetas_cat.jpg" alt="Calcetas Deportivas LiSport"
+                            class="w-full h-40 sm:h-64 object-cover object-center transform transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-60 transition-opacity flex items-center justify-center">
+                            <h3 class="text-white text-xl sm:text-2xl font-bold uppercase tracking-wider">Calcetas</h3>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 dark:bg-gray-900" id="products">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-2 dark:text-white">NUESTROS PRODUCTOS ESTRELLA</h2>
+                <p class="text-center text-gray-600 dark:text-gray-400 mb-10">Lo más vendido de nuestra colección</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="featuredProducts">
+                    <div class="col-span-full text-center py-8" id="loading-products">
+                        <i class="fas fa-spinner fa-spin text-pink-500 text-2xl mb-2"></i>
+                        <p class="text-gray-600 dark:text-gray-400">Cargando productos destacados...</p>
+                    </div>
+                </div>
+                <div class="text-center mt-10">
+                    <a href="catalogo.html"
+                        class="bg-pink-500 text-white px-6 py-3 rounded-full font-medium hover:bg-pink-600 transition inline-block focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
+                        Ver todos los productos
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 bg-gray-50 dark:bg-gray-800">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-10 dark:text-white">TECNOLOGÍA Y CONFORT EN CADA FIBRA</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow text-center">
+                        <i class="fas fa-wind text-pink-500 dark:text-pink-400 text-4xl mb-4"></i>
+                        <h4 class="font-bold dark:text-white text-xl mb-2">Máxima Transpiración</h4>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Tejidos inteligentes que mantienen tu piel fresca y seca, sin importar la intensidad del
+                            entrenamiento.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow text-center">
+                        <i class="fas fa-hand-rock text-pink-500 dark:text-pink-400 text-4xl mb-4"></i>
+                        <h4 class="font-bold dark:text-white text-xl mb-2">Soporte y Elasticidad 360°</h4>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Diseños de compresión que se mueven contigo, ofreciendo el soporte perfecto sin restringir
+                            tu libertad.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow text-center">
+                        <i class="fas fa-heart text-pink-500 dark:text-pink-400 text-4xl mb-4"></i>
+                        <h4 class="font-bold dark:text-white text-xl mb-2">Diseño y Durabilidad</h4>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Colores vibrantes y costuras reforzadas que resisten el paso del tiempo y te hacen brillar.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-50 dark:bg-gray-800 pt-10 pb-6">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">LiSport</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Porque entrenar también es una forma de brillar.
+                        Descubre ropa deportiva pensada para mujeres seguras, activas y llenas de poder.</p>
+                    <div class="social-links flex space-x-4">
+                        <a href="#"
+                            class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white dark:hover:bg-pink-500 dark:hover:text-white transition focus:outline-none focus:ring-2 focus:ring-pink-500"
+                            aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/li_sport_25?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                            class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white dark:hover:bg-pink-500 dark:hover:text-white transition focus:outline-none focus:ring-2 focus:ring-pink-500"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Enlaces Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="Inicio.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Inicio</a>
+                        </li>
+                        <li><a href="catalogo.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Comprar</a>
+                        </li>
+                        <li><a href="sobre-nosotros.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Nuestra
+                                Historia</a></li>
+                        <li><a href="contacto.html"
+                                class="text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-white transition focus:outline-none focus:text-white">Contáctanos</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Tu Compra Segura</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-gray-600 dark:text-gray-300">
+                            <i class="fas fa-undo-alt mt-1 mr-2 text-pink-400"></i>
+                            <p>30 días para Cambios y Devoluciones.</p>
+                        </li>
+                        <li class="flex items-start text-gray-600 dark:text-gray-300">
+                            <i class="fas fa-truck mt-1 mr-2 text-pink-400"></i>
+                            <p>Envíos a todo México.</p>
+                        </li>
+                        <li class="flex items-start text-gray-600 dark:text-gray-300">
+                            <i class="fas fa-lock mt-1 mr-2 text-pink-400"></i>
+                            <p>Pago 100% seguro.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Encuéntranos</h3>
+
+                    <div class="map-container mb-4 rounded-md overflow-hidden shadow-lg">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2729.2544410240494!2d-99.50254862667765!3d17.549706698112438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cbedc493332ecf%3A0x88d3c2fff71d32c7!2sbe%20you%20for%20you!5e1!3m2!1ses-419!2smx!4v1762577542925!5m2!1ses-419!2smx"
+                            width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Ubicación de la tienda LiSport en Chilpancingo"></iframe>
+                    </div>
+
+                    <ul class="space-y-1">
+                        <li class="flex items-center text-gray-600 dark:text-gray-300 text-sm">
+                            <i class="fas fa-map-marker-alt mr-2 text-pink-400"></i>
+                            Chilpancingo de los Bravo, Guerrero
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div
+            class="copyright border-t border-gray-200 dark:border-gray-700 pt-6 text-center text-gray-500 dark:text-gray-400">
+            <p>© 2025 LiSport. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="productModal" class="fixed inset-0 z-[100] hidden bg-black bg-opacity-60 overflow-y-auto" aria-modal="true" role="dialog">
+        
+        <div id="modalContentWrapper" class="relative w-full h-full flex flex-col md:flex-row md:items-center md:justify-center min-h-screen p-0 md:p-8">
+            
+            <button id="closeProductModal" class="absolute top-4 right-4 text-white hover:text-pink-500 z-[101] p-2 bg-black/50 rounded-full md:bg-transparent md:text-white dark:md:text-white">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+
+            <div id="modalImageContainer" class="absolute inset-0 md:relative md:w-1/2 md:max-w-4xl max-h-full flex items-center justify-center bg-gray-100 dark:bg-gray-900 md:rounded-l-xl">
+                <img id="modalProductImage" src="images/products/Chaqueta.png" alt="Producto Principal" 
+                    class="max-w-full max-h-full object-contain transition-transform duration-300 pointer-events-none w-full h-full md:p-8">
+            </div>
+
+            <div id="infoCard" class="absolute bottom-4 left-4 p-6 w-11/12 max-w-xs md:relative md:top-auto md:left-auto 
+                        bg-white dark:bg-gray-800 rounded-xl shadow-2xl transform transition-all z-[10] overflow-y-auto
+                        
+                        /* Clases de Control Dual */
+                        hidden md:flex md:flex-col md:w-1/2 md:max-w-md md:rounded-l-none md:rounded-r-xl
+                        
+                        md:p-8 space-y-4">
+                
+                <span id="productCategory" class="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+                    sweaters
+                </span>
+                <h2 id="productTitle" class="text-3xl font-bold text-gray-900 dark:text-white">Wooo</h2>
+
+                <div class="pt-0">
+                    <span id="productPrice" class="text-3xl font-extrabold text-pink-500">$231</span>
+                    <p class="text-green-600 dark:text-green-400 font-semibold flex items-center mt-1 md:block hidden">
+                        <i class="fas fa-check-circle mr-2"></i> 
+                        <span id="productStock">12 disponibles</span>
+                    </p>
+                </div>
+                
+                <p id="productSKU" class="text-gray-600 dark:text-gray-300 text-sm">dfzscsd</p>
+
+                <div id="colorOptions">
+                    <h4 class="font-bold mb-2 dark:text-white">Colores:</h4>
+                    <div class="flex items-center space-x-3">
+                        </div>
+                </div>
+
+                <div id="sizeOptions" class="pt-2">
+                    <h4 class="font-bold mb-3 dark:text-white">Tallas:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        </div>
+                </div>
+
+                <div class="pt-4">
+                    <a href="https://wa.me/TUNUMERO" id="whatsappButton"
+                        class="w-full flex items-center justify-center bg-green-500 text-white text-lg font-bold py-3 rounded-xl hover:bg-green-600 transition shadow-lg focus:outline-none focus:ring-4 focus:ring-green-300">
+                        <i class="fab fa-whatsapp text-xl mr-3"></i>
+                        Lo quiero
+                    </a>
+                </div>
+            </div>
+            
+            <div id="infoButtonContainer" class="absolute bottom-4 left-4 z-[110] md:hidden">
+                <button id="modalDetailsButton" class="bg-pink-500 text-white p-3 rounded-full shadow-lg hover:bg-pink-600 focus:outline-none focus:ring-4 focus:ring-pink-300">
+                    <i class="fas fa-info-circle text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="imageModal" class="image-modal">
+        <div class="modal-carousel">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="carousel-container-modal">
+                <div id="modalCarouselSlides" class="carousel-slides-container">
+                    </div>
+
+                <button class="carousel-nav-modal carousel-prev-modal" id="modalPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-nav-modal carousel-next-modal" id="modalNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <div class="carousel-indicators-modal" id="modalIndicators">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/inicio.js"></script>
+</body>
+
+</html>
