@@ -154,6 +154,7 @@ function generateModalColorsHTML(colores_array) {
 }
 
 /**
+ * 🌟 LÓGICA DE ALTERNANCIA (MOSTRAR/OCULTAR) PARA MÓVIL 🌟
  * Alterna la visibilidad de la tarjeta de información flotante (solo en móvil).
  */
 function toggleInfoCard() {
@@ -163,11 +164,15 @@ function toggleInfoCard() {
     // Solo permitir la acción en móvil
     if (window.matchMedia('(max-width: 768px)').matches) {
         if (infoCard.classList.contains('hidden')) {
+            // Abrir: Mostrar infoCard
             infoCard.classList.remove('hidden');
-            infoButtonContainer.classList.add('hidden'); // Oculta el botón 'i'
+            // Ocultar el botón 'i'
+            infoButtonContainer.classList.add('hidden'); 
         } else {
+            // Cerrar: Ocultar infoCard
             infoCard.classList.add('hidden');
-            infoButtonContainer.classList.remove('hidden'); // Muestra el botón 'i'
+            // Mostrar el botón 'i'
+            infoButtonContainer.classList.remove('hidden'); 
         }
     }
 }
@@ -182,7 +187,8 @@ function fillProductModal(product) {
     // 1. Datos principales
     document.getElementById('productTitle').textContent = product.nombre || 'Producto Desconocido';
     document.getElementById('productPrice').textContent = `$${product.precio ? product.precio.toFixed(2) : '0.00'}`;
-    document.getElementById('productSKU').textContent = product.sku || ''; 
+    // Se asume que 'product.descripcion' o 'product.sku' es el texto descriptivo
+    document.getElementById('productSKU').textContent = product.descripcion || product.sku || ''; 
     document.getElementById('productCategory').textContent = product.categoria || 'sweaters'; 
 
     // 2. Imagenes
@@ -213,23 +219,19 @@ function fillProductModal(product) {
         whatsappButton.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappText)}`;
     }
     
-    // 🌟🌟🌟 LÓGICA DE VISIBILIDAD DUAL (ESCRITORIO vs MÓVIL) 🌟🌟🌟
+    // 🌟🌟🌟 LÓGICA DE VISIBILIDAD DUAL 🌟🌟🌟
     const isDesktop = window.matchMedia('(min-width: 769px)').matches;
     
-    if (infoCard) {
+    if (infoCard && infoButtonContainer) {
         if (isDesktop) {
-            // ESCRITORIO: Mostrar la tarjeta (columna)
+            // ESCRITORIO: Mostrar la tarjeta (columna), ocultar el botón 'i'
             infoCard.classList.remove('hidden');
+            infoButtonContainer.classList.add('hidden');
         } else {
-            // MÓVIL: Ocultar la tarjeta por defecto (flotante)
+            // MÓVIL: Ocultar la tarjeta por defecto (flotante) y mostrar el botón 'i'
             infoCard.classList.add('hidden');
+            infoButtonContainer.classList.remove('hidden'); 
         }
-    }
-    
-    // Controlar la visibilidad del botón 'i'
-    if (infoButtonContainer) {
-        // El botón 'i' solo debe ser visible en MÓVIL
-        infoButtonContainer.classList.toggle('hidden', isDesktop); 
     }
     // 🌟🌟🌟 FIN LÓGICA DE VISIBILIDAD DUAL 🌟🌟🌟
 
@@ -247,6 +249,12 @@ function closeProductModalHandler() {
     if (productModal) {
         productModal.classList.add('hidden');
         document.body.classList.remove('overflow-hidden');
+        
+        // Asegurar que la tarjeta de info se oculte al cerrar el modal completo (para el próximo uso)
+        if (infoCard && infoButtonContainer) {
+            infoCard.classList.add('hidden');
+            infoButtonContainer.classList.remove('hidden');
+        }
     }
 }
 
@@ -271,19 +279,33 @@ document.addEventListener('DOMContentLoaded', function () {
     if (closeProductModal) {
         closeProductModal.addEventListener('click', closeProductModalHandler);
     }
+    
+    // 🌟 CORRECCIÓN APLICADA AQUÍ 🌟
     if (modalDetailsButton) {
-        // Listener para el botón 'i' (Móvil)
-        modalDetailsButton.addEventListener('click', toggleInfoCard);
-    }
-    if (infoCard) {
-        // Listener para cerrar la tarjeta de info al hacer clic en ella (sólo en móvil)
-        infoCard.addEventListener('click', toggleInfoCard);
+        // Listener para el botón 'i' (Móvil): ABRE la tarjeta
+        modalDetailsButton.addEventListener('click', function(e) {
+            // EVITA que el evento de clic se propague al productModal (el fondo),
+            // lo cual podría estar cancelando la acción de toggleInfoCard.
+            e.stopPropagation(); 
+            toggleInfoCard();
+        });
     }
     
     if (productModal) {
-        // Cerrar al hacer clic fuera del contenido del modal
+        // CORRECCIÓN: Cerrar la tarjeta de info al hacer clic fuera de ella (en imagen/fondo)
         productModal.addEventListener('click', (e) => {
-            if (e.target === productModal || e.target.id === 'modalContentWrapper') {
+            const isClickInsideInfoCard = infoCard && infoCard.contains(e.target);
+            const isClickInsideCloseButton = closeProductModal && closeProductModal.contains(e.target);
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            
+            // Lógica para cerrar la infoCard si está abierta en móvil y el clic NO fue dentro de ella.
+            if (isMobile && !infoCard.classList.contains('hidden')) {
+                if (!isClickInsideInfoCard && !isClickInsideCloseButton) {
+                    toggleInfoCard();
+                    // Importante: No cerramos el modal principal aquí.
+                }
+            } else if (e.target === productModal || e.target.id === 'modalContentWrapper') {
+                // Si el clic fue en el fondo gris/negro principal, cerramos el modal completo.
                 closeProductModalHandler();
             }
         });
@@ -313,7 +335,7 @@ async function loadFeaturedProducts() {
 
         if (!products || products.length === 0) {
              container.innerHTML = `
-                <div class="col-span-full text-center py-8">
+                 <div class="col-span-full text-center py-8">
                     <i class="fas fa-star text-gray-400 text-4xl mb-4"></i>
                     <p class="text-gray-600 dark:text-gray-400">No hay productos destacados en este momento</p>
                     <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Marca productos como destacados desde el panel de administración</p>
@@ -339,7 +361,7 @@ async function loadFeaturedProducts() {
             const card = document.createElement('div');
             card.className = 'product-card bg-white dark:bg-gray-700 rounded-lg shadow p-4 flex flex-col h-full cursor-pointer';
             card.setAttribute('data-product-id', product.id);
-            card.setAttribute('data-product-data', JSON.stringify(product).replace(/"/g, '&quot;')); 
+            card.setAttribute('data-product-data', JSON.stringify(product).replace(/"/g, '"')); 
 
             // --- INICIO: HTML DE LA TARJETA ---
             card.innerHTML = `
@@ -362,6 +384,17 @@ async function loadFeaturedProducts() {
                             <i class="fas fa-images mr-1"></i>${imagenes.length}
                         </span>
                     ` : ''}
+                                                <div class="flex justify-between items-center mt-auto">
+                        <p class="text-pink-500 font-bold text-lg">$${precio}</p>
+                        ${cantidad > 0 ?
+                        `<span class="text-sm text-green-600 dark:text-green-400 font-medium">
+                                ${cantidad} disponibles
+                            </span>` :
+                        `<span class="text-sm text-red-600 dark:text-red-400 font-medium">
+                                Agotado
+                            </span>`
+                    }
+                    </div>
                 </div>
                 <div class="flex-1 flex flex-col">
                     <h3 class="text-lg font-semibold mb-2 dark:text-white line-clamp-2">${nombre}</h3>
@@ -387,17 +420,6 @@ async function loadFeaturedProducts() {
                     </div>
                     ` : ''}
                     
-                    <div class="flex justify-between items-center mt-auto">
-                        <p class="text-pink-500 font-bold text-lg">$${precio}</p>
-                        ${cantidad > 0 ?
-                        `<span class="text-sm text-green-600 dark:text-green-400 font-medium">
-                                ${cantidad} disponibles
-                            </span>` :
-                        `<span class="text-sm text-red-600 dark:text-red-400 font-medium">
-                                Agotado
-                            </span>`
-                    }
-                    </div>
                 </div>
             `;
             // --- FIN: HTML DE LA TARJETA ---
@@ -405,7 +427,7 @@ async function loadFeaturedProducts() {
             card.addEventListener('click', function() {
                 const productDataString = this.getAttribute('data-product-data');
                 if (productDataString) {
-                    const productData = JSON.parse(productDataString.replace(/&quot;/g, '"')); 
+                    const productData = JSON.parse(productDataString.replace(/"/g, '"')); 
                     fillProductModal(productData);
                 }
             });
